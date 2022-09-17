@@ -1,0 +1,104 @@
+#la parte de german
+
+\subsection{Reconocimiento de movimiento simple: deformación dinámica del tiempo}
+
+\lipsum[Con el objetivo de reconocer gestos o movimientos simples, se ha seleccionado una Deformación Dinámica del Tiempo. Las tecnologías de Deformación Dinámica del Tiempo contienen los requerimientos de un software de medio nivel dado que se adaptan a las características de la plataforma del hardware subyacente muy fácilmente y son relativamente rápidas y eficientes (algunos diminutos dispositvos incrustados pueden contenerlas).] % Dummy text
+
+
+\ En nuestra solución, el factor humano está monitorado mediante una serie de sensores S, conteniendo $N_S$  componentes.
+
+\ S = { $s_i$, i = 1, … , $N_S$ }
+
+\ La producción de estos sensores son periódicamente mostradas cada $T_s$ segundos; obteniendo para cada instante de tiempo, t, un vector de $N_s$ valores (cada valor de cada sensor). Este vector $Y_t$ es llamado una "muestra multidimensional".
+
+\ Y_t = {y_t^i , i = 1, ..., N_S}
+
+\ Entonces, un simple movimento Y tendrá una duración de $T_m$ segundos y será descrito por la secuencia temporal de $N_m$ muestras multidimensionales que habrán sido coleccionadas en ese tiempo. Para reconocer movimientos más tarde, se ha creado un almacen $\mathcal{R}$ conteniendo las correspondientes acciones temporales para que cada una de las acciones simples K sean reconocidas.
+
+\ Y = {$Y_t$, t = 1, ..., T_m} = {$Y^i$, i = 1, ..., $N_m$}
+
+\ $\mathcal{R}$ = {$R_i$, i = 1, ..., K}
+
+\ En general, la gente realiza movimientos similares pero de diferentes maneras. Además, las transiciones pueden ser más lentas o más rápidas, algunas acciones elementales pueden ser añadidas o eliminadas, etc... Por ello, dada una secuencia X con $N_x$ muestras, representando a un movimiento a ser reconocido, debe estar localizado el patrón $R_i$ $\in$ $\mathcal{R}$ más cercano a X; de la forma que $R_i$ sea reconocida como la acción realizada. Para hacer eso es definida una función de distancia. Esta función de distancia puede ser aplicada para calcular una matriz de coste, requiriendo tantas muestras frecuentemente no tienen la misma longitud ni están alineadas.
+
+\ d: $\mathcal{F}$ X $\mathcal{F}$  \longrightarrow $\mathfrak{R}^+$   ,    $X_i$, $R_i^j$ $\in$ $\mathcal{F}$
+
+\ C $\in$ $\mathfrak{R}^{N_x x N_m}$  C(n,m) = d($X^n$, $R^m_j$)
+
+\ En los sensores posicionales (acelerometros, dispositivos infrarrojos, etc.) la función distancia es aplicada directamente a la producción de estos (al contrario que, por ejemplo, micrófonos, cuya producción debe ser evaluada en el dominio de potencia). Aunque pueden ser empleadas otras funciones de distancia (como la divergencia de Kullback-Leibler o la distancia de Manhattan), para este primer trabajo estamos empleando la distancia estándar Euclidea.
+
+\ d($X^n$, $R_j^m$) = $\sqrt{
+\sum(x_i^n - r_i^{m,j})^2}$
+
+\ Después, es definido un camino torcido  p = ($p_1$,$p_2$,...,$p_L$) como secuencia de pares ($n_\mathfrak{l}, m_\mathfrak{l})$ $\in$ [1, $N_x$] X [1, $N_m$] and $\mathfrak{l}$ $\in$ [1, L], satisfaciendo tres condiciones: (i) la condición vinculante, i.e., $p_1$ = [1,1] y $p_L$ = [$N_x$,$N_m$]; (ii) la condición monotónica, i.e. $n_1 \leq n_2  \leq n_3 ...  \leq n_L$; y (iii) la condición de escalón de tamaño, i.e. $p_\mathfrak{l}$ -$p_{\mathfrak{l}-1}$ $\in$ {(1,0), (0,1), (1,1)} with \mathfrak{l} $\in$ [1, L-1].
+
+\ Entonces, el coste total de un camino torcido $p_i$ es calculado añadiendo todos los costes parciales o distancias. Con todo esto, la distancia entre dos secuencias de datos $R_i$ y X es definida como el coste (distancia) del camino torcido óptimo $p^*$.
+
+\ $d_{p_i}$(X,$R_i$) = \sum($X^{n_l}$, $R_j^{m_l}$)
+
+\ $d_{PTW}$(X,$R_j$) = $d_p^*($X,$R_j$) = min{$d_{p_i}$(X,$R_j$), siendo $p_i$ un camino torcido}
+
+\ Finalmente, el simple movimiento reconocido desde la secuencia de datos X es aquel cuyo patrón $R_i$ tiene la menor distancia (es el más cercano) a X. El uso de esta definición es tolerante a variaciones de velocidad en la ejecución del movimiento, a la introducción de micro-gestos, etc... Además, como se puede ver, cuando una tecnología de hardware diferente es empleada, es suficiente con actualizar el patrón de repositorio $\mathcal{R}$ para reconfigurar el patrón de reconocimiento de solución entero (dado que no es requerido ningún entrenamiento).
+
+\subsection{Reconocimiento de acción compleja: Cadenas Ocultas de Markov}
+
+\ El mecanismo propuesto previamente es muy útil para reconocer acciones simples, pero las acciones más complejas involucran un número más alto de variables y requieren de mucho más tiempo. Además, la Deformación Dinámica del Tiempo tiende a ser más imprecisa, y se requieren de modelos probabilísticos. Entre todos los modelos existentes, las Cadenas Ocultas de Markov son el más adecuado para escenarios industriales y procesos humanos.
+
+\ Desde la fase anterior, el universo de los posibles movimientos simples a ser reconocidos es \mathcal{M} = {$m_i$, i = 1, ..., K}. Aparte, se define un estado universal \mathcal{U} = {$u_i$, i = 1, ..., Q}, describiendo todos los estados que la gente puede cruzar al realizar cualquiera de las acciones bajo estudio.
+
+\ Después, también es considerado un set de observaciones \mathcal{O} = {$O_i$, i = 1, ..., $Z_O$} (movimientos simples reconocidos en la fase anterior), al igual que la secuencia de estados V = {$O_i$, i = 1, $Z_v$} describiendo la acción a ser modelada por la Cadena Oculta de Markov. En este caso inicial, estamos asumiendo que cada observación corresponde a un nuevo estado, así que $Z_v$ = $Z_o$. Entonces, tres matrices son calculadas: (i) la matriz transitoria A, decribiendo la probabilidad de que el estado $u_j$ siga al estado $u_i$; (ii) la matriz de observación B, describiendo la probabilidad de que la observación $o_i$ sea causada por el estado $u_j$ independientemente de k; y (iii) la matriz de probabilidad inicial \prod.
+
+\ A = [$a_{i,j}$]   $a_{i,j}$ = P($v_k$ = $u_j$ | $v_{k-1}$ = $u_j$)
+
+\ B = [$b_j$($o_i$)]  $b_j$($o_i$) = P($x_k$ = $o_i$ | $v_k$ = $u_j$)
+
+\ \prod = [$\pi_i$]   $\pi_i$ = P($v_i$ = $u_i$)
+
+\ Entonces, cada Cadena Oculta de Markov para cada actividad compleja $\lambda_i$ a reconocer es descrita mediante estos tres previos elementos.
+
+\ $\lambda_i$ = [A, B, \prod]
+
+\ Además, se realizan dos asumciones: (i) la asumción de Markov, mostrando que todo estado es solamente dependiente del anterior; y (ii) la asumción de independencia, declarando que cualquier secuencia de observaciones depende solo del estado presente y no de estados u observaciones previos.
+
+\ P($v_k$ | $v_1$, ..., $v_(k-1)$) = P($v_k$ | $v_(k-1)$)
+
+\ P($o_k$ | $o_1$, ..., $o_(k-1)$, $v_1$, $v_k$) = P($o_k$ | $v_k$)
+
+\ Para evaluar el modelo y reconocer la actividad que está siendo realizada por los usuarios, en este paper estamos usando un acercamiento tradicional. Aunque algoritmos avanzados han sido provados ser más eficientes, para este trabajo inicial estamos implementando directamente la expresión de evaluación en su forma tradicional.
+
+\ P($\theta$|$\lambda$) = \sum P($\theta$|V,$\lambda$) P(V|$\lambda$) =
+
+\ = \sum( \prod P($o_i$|$v_i$,$\lambda$) )($\pi_{v1}$ · $a_{v1v2}$ · ... · $a_{v_{zv-1}v_{zv}}$) =
+
+\ = \sum $\pi_{v1}$ · $b_{v1}(o_1)$ · $a_{v1v2}$ · $b_{v2}(o_2)$ · ... · $a_{v_{zv-1}v_{zv}}$ · $b_{vzv}(o_{zo})$
+
+\ El proceso de aprendizaje también fue implementado de la manera más simple. Para la matriz transitoria, la de observación y la inicial se emplearon definiciones estadísticas. En particular, la definición de probabilidad de Laplace fue empleada para estimar estas tres matrices desde estadísticos acerca de las actividades bajo estudio. El operador count(·) el número de veces que un evento ocurre.
+
+\ $a{i,j}$ = P($u_j$ | $u_i$) = $\frac{count($u_j$ sigue $u_i$}{count($u_j$)}$
+
+\ $b_j$($o_i$) = P($o_i$|$u_j$) = $\frac{count($o_i$ es observado en el estado $u_j$}{count($u_j$)}$
+
+\ $\pi_{i}$ = P($v_1$ = $u_1$) = $\frac{count($v_1$ = $u_1$}{count($v_1$)}$
+
+4. Validación experimental: implementación y resultados
+
+Con el fin de evaluar el desempeño de la solución propuesta, se diseñó una validación experimental y se llevó a cabo. Un escenario industrial fue simulado en aulas grandes de la Universidad Politécnica de Madrid. El escenario representaba una empresa tradicional de productos artesanales hechos a mano. En particular, un pequeño fabricante de PCI (Placas de Circuito Impreso) fue emulado.
+Para captar información sobre el comportamiento de las personas, se proporcionó a los participantes con un guante cibernético, que incluía acelerómetros y un lector RFID [19]. Los objetos alrededor de los escenarios se identificaron con una etiqueta RFID, por lo que la plataforma de hardware propuesta pueda identificar la posición de la mano (gesto) y los objetos con los que interactúan las personas.
+Se definió y reconoció una lista de doce actividades complejas diferentes utilizando la tecnología propuesta. La tabla 1 describe las doce actividades definidas, incluyendo una una breve descripción de las mismas. 
+
+TABLA
+
+Dieciocho personas (18) participaron en el experimento. Se pidió a las personas que realizaran las actividades en un orden aleatorio. El orden real, así como el orden en que las actividades se reconocen fueron almacenados por un proceso de software de supervisión. La tasa de éxito para toda la solución se evaluó, identificando (además), la mismatasa para cada una de las fases existentes.
+Para evaluar la mejora obtenida en comparación con las soluciones similares existentes, se emplearon las mismas secuencias de datos físicos para alimentar una solución de reconocimiento de patrones estándar basado únicamente en HMM. Utilizando un software de procesamiento estadístico de datos se extrayeron algunos resultados relevantes.
+La figura 4 representa la tasa de éxito media para tres casos: la solución global, la primera fase (DTW) y la segunda fase (HMM). Además, también se incluye el porcentaje de éxito del enfoque tradicional basado en HMM. Como puede verse, la tecnología propuesta es, globalmente, alrededor de un 9% mejor que las técnicas tradicionales de reconocimiento de patrones
+tradicionales basadas en HMM exclusivamente. Además, la primera fase (basada en DTW) es un 20% peor que la segunda fase (HMM), lo cual es significativo ya que las técnicas de las técnicas de Time Warping son más débiles por defecto. 
+
+FIGURA
+
+5. CONCLUSIONES Y FUTUROS TRABAJOS
+
+En este trabajo presentamos un nuevo algoritmo de reconocimiento de patrones para integrar a las personas en los sistemas de la Industria 4.0 y los procesos impulsados por el hombre. El algoritmo define actividades complejas
+como composiciones de movimientos simples. Las actividades complejas se reconocen mediante modelos de Markov ocultos, y los movimientos simples se reconocen mediante Time Warping. Para permitir la aplicación de este algoritmo en pequeños dispositivos embebidos, se seleccionan configuraciones ligeras. También se lleva a cabo una validación experimental, y los resultados muestran una mejora global de la tasa de éxito en torno al 9%.
+En futuros trabajos se considerarán las metodologías más complejas para el procesamiento de datos, y se evaluará la comparación para diferentes configuraciones del algoritmo propuesto. Además, se analizará la propuesta en diferentes escenarios.
+
+AGRADECIMIENTOS. La investigación que ha conducido a estos resultados ha recibido financiación del el Ministerio de Economía y Competitividad a través del proyecto SEMOLA (TEC2015-68284-R) y del Ministerio de Ciencia, Innovación y Universidades a través de VACADENA (proyecto RTC-2017-6031-2).
