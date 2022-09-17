@@ -2,7 +2,7 @@
 
 Miembros del grupo: Germán Llorente, Gonzalo Martínez, Carlos Puigserver, Álex Muñoz
 
-El link al repositorio es el siguiente:
+El link al repositorio es el siguiente: https://github.com/Germiprogramer/TAREA1_LATEX.git
 
 # INDUSTRIA 4.0
 
