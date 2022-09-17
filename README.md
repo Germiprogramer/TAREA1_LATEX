@@ -10,3 +10,4 @@ En la actualidad, el mundo se encuentra en el inicio de la "Cuarta Revolución I
 
 # Como relacionamos nuestro trabajo con la Industria 4.0
 
+Tal y como se ha explicado anteriormente, estamos hablando de un aumento masivo de la digitalización. Para ello, es clave el uso de distintos dispositivos electrónicos que nos permitan conectarnos a la nube. Pese a que en los países más desarrollados podemos decir que estamos adaptados a las tecnologías eléctricas, otros territorios menos afortunados todavía están en un proceso de descubrimiento de estas herramientas. Por ello, queremos enfocar nuestro trabajo de cara al aumento del uso de la electricidad en los distintos países del mundo.
