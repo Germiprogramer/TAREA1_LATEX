@@ -17,3 +17,5 @@ Tal y como se ha explicado anteriormente, estamos hablando de un aumento masivo 
 ![2018](https://user-images.githubusercontent.com/91720991/190913659-b4a6e9f7-937e-4784-a929-68fadb5230ad.png)
 
 Los gráficos mostrados representan el primer año y el último año registrado en nuestro dataset. A primera vista, se ve como en una diferencia de 28 años, el número de países en los que prácticamente todos los habitantes tienen electricidad (un porcentaje de 90% o más) ha subido a más del doble.
+
+# Algoritmo Dynamic Time Warping
