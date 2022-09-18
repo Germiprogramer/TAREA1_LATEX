@@ -19,3 +19,5 @@ Tal y como se ha explicado anteriormente, estamos hablando de un aumento masivo 
 Los gráficos mostrados representan el primer año y el último año registrado en nuestro dataset. A primera vista, se ve como en una diferencia de 28 años, el número de países en los que prácticamente todos los habitantes tienen electricidad (un porcentaje de 90% o más) ha subido a más del doble.
 
 # Algoritmo Dynamic Time Warping
+
+Uno de los algoritmos a desarrollar en este trabajo es el "Dynamic Time Warping", "Deformación Dinámica del Tiempo" traducido al español. Este algoritmo se usa para medir la similitud de dos muestras de distinto tiempo, sin importar que estas tengan un número distinto de elementos.
