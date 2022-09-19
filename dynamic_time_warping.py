@@ -14,7 +14,6 @@ b = arr.array("b", [2,4,5])
 array1 = [1, 2, 3, 4, 4, 4, 3, 2, 1]
 array2 = [1, 3, 4, 4, 2, 1]
 
-array1 = sorted(array1)
 
 #Funcion para calcular la distancia
 def distancia(x,y):
@@ -93,4 +92,29 @@ def matriz_distancia_acumulada(a,b):
     plt.show()
     return matriz
 
-matriz_distancia_acumulada(array1,array2)
+z = matriz_distancia_acumulada(array1,array2)
+
+resultado = (z[0])[0]
+posicion = (z[0])[0]
+for i in range(len(b)):
+    for j in range(len(a)):
+        try:
+            if (z[i+1])[j]<(z[i+1])[j+1] and (z[i+1])[j]<(z[i])[j+1]:
+                resultado=resultado+(z[i+1])[j]
+                posicion= (i+1,j)
+            elif (z[i])[j+1]<(z[i+1])[j+1] and (z[i+1])[j]<(z[i+1])[j]:
+                resultado=resultado+(z[i])[j+1]
+                posicion = (i,j+1)
+            elif (z[i+1])[j+1]<=(z[i])[j+1] and (z[i+1])[j+1]<=(z[i+1])[j]:
+                resultado=resultado+(z[i+1])[j+1]
+                posicion = (i+1,j+1)
+            else:
+                resultado=resultado+(z[i+1])[j+1]
+                posicion = (i+1,j+1)
+            print(resultado)
+            print(posicion)
+            
+
+        except:
+            pass
+print(resultado)
