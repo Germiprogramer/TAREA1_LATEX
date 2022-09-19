@@ -14,6 +14,8 @@ b = arr.array("b", [2,4,5])
 array1 = [1, 2, 3, 4, 4, 4, 3, 2, 1]
 array2 = [1, 3, 4, 4, 2, 1]
 
+array1 = sorted(array1)
+
 #Funcion para calcular la distancia
 def distancia(x,y):
     distancia = x-y
@@ -24,21 +26,26 @@ def distancia(x,y):
     return distancia
 
 #creamos la matriz distancia
-matriz = []
-for i in range(len(array2)):
-    matriz.append([])
-    for j in range(len(array1)-1):
-        matriz[i].append(None)
 
-for i in range(len(array1)):
-    for e in range(len(array2)):
-        try:
-            (matriz[e])[i] = distancia(array1[i],array2[e])
-        except:
-            pass
 
-print(matriz)
+
+
 def matriz_distancia(a,b):
+    
+    matriz = []
+    for i in range(len(b)):
+        matriz.append([])
+        for j in range(len(a)-1):
+            matriz[i].append(None)
+    
+    for i in range(len(a)):
+        for e in range(len(b)):
+            try:
+                (matriz[e])[i] = distancia(a[i],b[e])
+            except:
+                pass
+    print(matriz)
+
     fig, ax =plt.subplots(1,1)
     data=matriz
     column_labels=a
@@ -47,5 +54,43 @@ def matriz_distancia(a,b):
     ax.table(cellText=data,colLabels=column_labels, rowLabels=b,loc="center")
     
     plt.show()
+    return matriz
 
 matriz_distancia(array1, array2)
+
+def matriz_distancia_acumulada(a,b):
+    #repetimos el proceso anterior
+
+    matriz = []
+    for i in range(len(b)):
+        matriz.append([])
+        for j in range(len(a)-1):
+            matriz[i].append(None)
+    
+    for i in range(len(a)):
+        for e in range(len(b)):
+            try:
+                (matriz[e])[i] = distancia(a[i],b[e])
+            except:
+                pass
+    print(matriz)
+    #añadimos
+    
+    for i in range(len(a)):
+        for e in range(len(b)):
+            try:
+                (matriz[e])[i+1] = (matriz[e])[i+1] + (matriz[e])[i]
+            except:
+                pass
+
+    fig, ax =plt.subplots(1,1)
+    data=matriz
+    column_labels=a
+    ax.axis('tight')
+    ax.axis('off')
+    ax.table(cellText=data,colLabels=column_labels, rowLabels=b,loc="center")
+    
+    plt.show()
+    return matriz
+
+matriz_distancia_acumulada(array1,array2)
