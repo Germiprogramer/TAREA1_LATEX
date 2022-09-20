@@ -146,3 +146,5 @@ Ahora viene la parte interesante del algoritmo. Hasta ahora nos hemos dedicado a
             print("La distancia entre las dos muestras de datos es {}".format(distancia_entre_funciones))
 
             plt.show()
+
+A la hora de interpretar los resultados, lo más importante a tener en cuenta es la relación entre la distancia y la semejanza entre ambas muestras. A mayor distancia, menos se parecen las dos listas de datos; por lo que se ha cumplido el objetivo del algoritmo: analizar la semejanza entre dos muestras.
