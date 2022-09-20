@@ -60,3 +60,40 @@ En base a dicha distancia, lo siguiente que se hará es calcular la distancia de
 
         plt.show()
         return matriz
+ 
+ El siguiente paso es calcular la matriz de distancia acumulada, que será a partir de la cual realicemos el "Warping Path", para ello reutilizaremos el código de la función anterior, y después usaremos otro bucle for para que se vaya sumando el elemento anterior de cada fila al siguiente. 
+ 
+         def matriz_distancia_acumulada(a,b):
+            #repetimos el proceso anterior
+
+            matriz = []
+            for i in range(len(b)):
+                matriz.append([])
+                for j in range(len(a)-1):
+                    matriz[i].append(None)
+
+            for i in range(len(a)):
+                for e in range(len(b)):
+                    try:
+                        (matriz[e])[i] = distancia(a[i],b[e])
+                    except:
+                        pass
+            print(matriz)
+            #añadimos
+
+            for i in range(len(a)):
+                for e in range(len(b)):
+                    try:
+                        (matriz[e])[i+1] = (matriz[e])[i+1] + (matriz[e])[i]
+                    except:
+                        pass
+
+            fig, ax =plt.subplots(1,1)
+            data=matriz
+            column_labels=a
+            ax.axis('tight')
+            ax.axis('off')
+            ax.table(cellText=data,colLabels=column_labels, rowLabels=b,loc="center")
+
+            plt.show()
+            return matriz
