@@ -97,3 +97,52 @@ En base a dicha distancia, lo siguiente que se hará es calcular la distancia de
 
             plt.show()
             return matriz
+
+Ahora viene la parte interesante del algoritmo. Hasta ahora nos hemos dedicado a graficar tablas, y ahora debemos usar esas mismas tablas para calcular la "distancia" entre las dos distribuciones. El objetivo es crear un camino que nos lleve desde la posición de arriba a las izquierda de la tabla a la de abajo a la derecha. A este camino lo llamaremos "Warping Path". La condición es que solo podremos movernos como si fuesemos el rey de un tablero de ajedrez, con total libertad de dirección pero únicamente pudiendo desplazarnos una casilla. Entendiendo que la posición de arriba a la izquierda es la (0,0), las posiciones a las que nos podemos mover son la (1,0), (0,1) o la (1,1). En definitiva, para cualquier par (i,j), las casillas a desplazarse serán (i+1,j), (i,j+1) y (i+1,j+1). De estas, elegiremos aquella que tenga el menor valor, y así hasta llegar a la casilla final. Además, crearemos una variable resultado, a la cual le sumaremos los valores de las casillas por las que pasemos. Dividiendo el resultado entre el número de casillas obtendremos la distancia.
+
+        def warping_path(a,b):
+            z = matriz_distancia_acumulada(a,b)
+            resultado = (z[0])[0]
+            i=0
+            j=0
+            total=1
+
+            while i<=(len(array2)+1) or j<=(len(array1)+1):
+                print((i,j))
+                try:
+                    if (z[i+1])[j]<(z[i+1])[j+1] and (z[i+1])[j]<(z[i])[j+1]:
+                        resultado=resultado+(z[i+1])[j]
+                        i=i+1
+                        j=j
+                        total=total+1
+                    elif (z[i])[j+1]<(z[i+1])[j+1] and (z[i])[j+1]<(z[i+1])[j]:
+                        resultado=resultado+(z[i])[j+1]
+                        i=i
+                        j=j+1
+                        total=total+1
+                    elif (z[i+1])[j+1]<=(z[i])[j+1] and (z[i+1])[j+1]<=(z[i+1])[j]:
+                        resultado=resultado+(z[i+1])[j+1]
+                        i=i+1
+                        j=j+1
+                        total=total+1
+                    else:
+                        resultado=resultado+(z[i+1])[j+1]
+                        i=i+1
+                        j=j+1
+                        total=total+1
+                except:
+                    break
+            else:
+                pass
+
+            if i < (len(b)-1):
+                resultado=resultado+(z[i+1])[j]
+                total=total+1
+            if j < (len(a)-1):
+                resultado=resultado+(z[i])[j+1]
+                total=total+1
+
+            distancia_entre_funciones = resultado/total
+            print("La distancia entre las dos muestras de datos es {}".format(distancia_entre_funciones))
+
+            plt.show()
