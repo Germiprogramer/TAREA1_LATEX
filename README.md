@@ -22,6 +22,8 @@ Los gráficos mostrados representan el primer año y el último año registrado 
 
 Uno de los algoritmos a desarrollar en este trabajo es el "Dynamic Time Warping", "Deformación Dinámica del Tiempo" traducido al español. Este algoritmo se usa para medir la similitud de dos muestras de distinto tiempo, sin importar que estas tengan un número distinto de elementos.
 
+Para mostrar el funcionamiento del algoritmo, compararemos los datos de los 5 primeros países del dataset en 2010, y los 7 primeros de 2013. Tendría más sentido pillar los mismos países, pero como queremos mostrar que el DTW funciona para muestras de distinto número de elementos, añadimos dos países más al año 2013. No podemos usar el dataset entero porque se crashea el programa.
+
 Para empezar a programar el algoritmo, es preciso definir una distancia entre dos puntos. Nosotros usaremos la distancia euclídea.
 
     def distancia(x,y):
@@ -60,6 +62,8 @@ En base a dicha distancia, lo siguiente que se hará es calcular la distancia de
 
         plt.show()
         return matriz
+        
+![dtw 1](https://user-images.githubusercontent.com/91720991/191383080-83e6bb15-0a33-46eb-9f02-1c84e9a24d72.png)
  
  El siguiente paso es calcular la matriz de distancia acumulada, que será a partir de la cual realicemos el "Warping Path", para ello reutilizaremos el código de la función anterior, y después usaremos otro bucle for para que se vaya sumando el elemento anterior de cada fila al siguiente. 
  
@@ -97,6 +101,8 @@ En base a dicha distancia, lo siguiente que se hará es calcular la distancia de
 
             plt.show()
             return matriz
+            
+![dtw 2](https://user-images.githubusercontent.com/91720991/191382981-b729afd6-143a-434b-aa18-da355ed346da.png)
 
 Ahora viene la parte interesante del algoritmo. Hasta ahora nos hemos dedicado a graficar tablas, y ahora debemos usar esas mismas tablas para calcular la "distancia" entre las dos distribuciones. El objetivo es crear un camino que nos lleve desde la posición de arriba a las izquierda de la tabla a la de abajo a la derecha. A este camino lo llamaremos "Warping Path". La condición es que solo podremos movernos como si fuesemos el rey de un tablero de ajedrez, con total libertad de dirección pero únicamente pudiendo desplazarnos una casilla. Entendiendo que la posición de arriba a la izquierda es la (0,0), las posiciones a las que nos podemos mover son la (1,0), (0,1) o la (1,1). En definitiva, para cualquier par (i,j), las casillas a desplazarse serán (i+1,j), (i,j+1) y (i+1,j+1). De estas, elegiremos aquella que tenga el menor valor, y así hasta llegar a la casilla final. Además, crearemos una variable resultado, a la cual le sumaremos los valores de las casillas por las que pasemos. Dividiendo el resultado entre el número de casillas obtendremos la distancia.
 
