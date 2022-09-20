@@ -21,3 +21,42 @@ Los gráficos mostrados representan el primer año y el último año registrado 
 # Algoritmo Dynamic Time Warping
 
 Uno de los algoritmos a desarrollar en este trabajo es el "Dynamic Time Warping", "Deformación Dinámica del Tiempo" traducido al español. Este algoritmo se usa para medir la similitud de dos muestras de distinto tiempo, sin importar que estas tengan un número distinto de elementos.
+
+Para empezar a programar el algoritmo, es preciso definir una distancia entre dos puntos. Nosotros usaremos la distancia euclídea.
+
+    def distancia(x,y):
+        distancia = x-y
+        if distancia < 0:
+            distancia = - distancia
+        else:
+            pass
+        return distancia
+        
+En base a dicha distancia, lo siguiente que se hará es calcular la distancia de cada uno de los elementos del primer grupo con cada uno de los del segundo grupo. Todo ello lo expondremos en una tabla, dado que esta será importante más adelante para elaborar el "Warping Path". Para crear la tabla se ha utilizado la función distancia anteriormente definida y bucles for, mientras que para graficarla hemos usado la librería matplotlib.
+
+    def matriz_distancia(a,b):
+        #elaborar la matriz
+        matriz = []
+        for i in range(len(b)):
+            matriz.append([])
+            for j in range(len(a)-1):
+                matriz[i].append(None)
+
+        for i in range(len(a)):
+            for e in range(len(b)):
+                try:
+                    (matriz[e])[i] = distancia(a[i],b[e])
+                except:
+                    pass
+        print(matriz)
+
+        #graficar la matriz
+        fig, ax =plt.subplots(1,1)
+        data=matriz
+        column_labels=a
+        ax.axis('tight')
+        ax.axis('off')
+        ax.table(cellText=data,colLabels=column_labels, rowLabels=b,loc="center")
+
+        plt.show()
+        return matriz
