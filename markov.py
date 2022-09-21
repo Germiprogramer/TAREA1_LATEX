@@ -1,5 +1,6 @@
 import pandas as pd
 
+#creamos una lista que apunte el crecimiento y decrecimiento de cada pais
 def markov(PAIS):
     df = pd.read_csv('GDP_annual_growth.csv')
     df = df.fillna(0)
