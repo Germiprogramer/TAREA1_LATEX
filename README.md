@@ -215,7 +215,7 @@ Una vez hecho esto, creamos unos gráficos en los que aparecían las cadenas de 
 ![nigeria](https://user-images.githubusercontent.com/91721237/191485672-d6375630-4777-4c96-acf9-d8cb22de222b.png)
 
 ## Spain
-
+![spain](https://user-images.githubusercontent.com/91721237/191486800-93994a9c-e057-44ce-a1b3-b4f118192eca.png)
 
 ## Kyrgyz Republic
 ![Kyrgyz Republic](https://user-images.githubusercontent.com/91721237/191485681-7e6bdc47-abd4-4e63-99b7-7fcc9ff20c44.png)
