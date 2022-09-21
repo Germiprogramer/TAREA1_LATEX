@@ -154,3 +154,77 @@ Ahora viene la parte interesante del algoritmo. Hasta ahora nos hemos dedicado a
             plt.show()
 
 A la hora de interpretar los resultados, lo más importante a tener en cuenta es la relación entre la distancia y la semejanza entre ambas muestras. A mayor distancia, menos se parecen las dos listas de datos; por lo que se ha cumplido el objetivo del algoritmo: analizar la semejanza entre dos muestras.
+
+# Modelos ocultos de Markov
+
+Para complementar los puntos 4 y 5, decidimos elegir un dataset en el que aparecía el producto interior bruto (GDP) de cada país desde el 1960 hasta el 2020. De esta manera podemos realizar un estudio a través de las cadenas de Markov, para ver cuando crecía y decrecia el GDP de cada país.
+
+En primer lugar, creamos una función que creaba una lista en la que poníamos "c" o "d" dependiendo de si crecía o decrecía, y luego otra función que contaba las veces que crecía o decrecía después de cada una, es decir, por cada "c" que hubiera en la lista mirábamos si la siguiente era otra "c" o una "d", y lo mismo para las "d", de esta forma creábamos una lista para lo inmedietamente posterior al crecimiento y otra para lo inmediatamente posterior al decrecimiento. Así sólo teníamos que contar el número de "c" y "d" que había en cada lista y teníamos una aproximación de como iba a evolucionar dependiendo de si había crecido o no.
+
+El código de esto es:
+```
+import pandas as pd
+
+#creamos una lista que apunte el crecimiento y decrecimiento de cada pais
+def lista_total(PAIS):
+    df = pd.read_csv('GDP_annual_growth.csv')
+    df = df.fillna(0)
+    pais = df.loc[df['Country Name'] == PAIS]
+    evolucion = []
+    for i in range(4,65):
+        estado_actual = float(pais.iloc[:,i])
+        if i < 65:
+            estado_siguiente = float(pais.iloc[:, i+1])
+            if estado_actual != 0 and estado_siguiente != 0:
+                if estado_actual > estado_siguiente:
+                    evolucion.append('d')
+                elif estado_actual < estado_siguiente:
+                    evolucion.append('c')
+    return(evolucion)
+    
+#creamos lista_c y lista_d para ver que ocurre inmediatamente después de que crezca o decrezca respectivamente
+def listas_concretas(PAIS):
+    pais = lista_total(PAIS)
+    lista_c = []
+    lista_d = []
+
+    for i in range(0,len(pais)):
+        if i < len(pais)-1:
+            if pais[i] == 'c':
+                lista_c.append(pais[i+1])
+            elif pais[i] == 'd':
+                lista_d.append(pais[i+1])
+
+    c_en_c = lista_c.count('c')
+    d_en_d = lista_d.count('d')
+
+    print("Cuando el GDP de", PAIS, "crece, hay un", round((c_en_c/len(lista_c)) * 100, 2), "% de que crezca otra vez, y un", round(100 - (c_en_c/len(lista_c)) * 100, 2), "% de que decrezca")
+    print("Cuando el GDP de", PAIS, "decrece, hay un", round((d_en_d/len(lista_c)) * 100, 2), "% de que decrezca otra vez, y un", round(100 - (d_en_d/len(lista_c)) * 100, 2), "% de que crezca")
+
+listas_concretas('Nigeria')
+listas_concretas('Spain')
+listas_concretas('Kyrgyz Republic')
+listas_concretas('Italy')
+listas_concretas('Germany')
+listas_concretas('China')
+```
+
+Una vez hecho esto, creamos unos gráficos en los que aparecían las cadenas de Markov de algunos paises.
+
+## Nigeria
+![nigeria](https://user-images.githubusercontent.com/91721237/191485672-d6375630-4777-4c96-acf9-d8cb22de222b.png)
+
+## Spain
+
+
+## Kyrgyz Republic
+![Kyrgyz Republic](https://user-images.githubusercontent.com/91721237/191485681-7e6bdc47-abd4-4e63-99b7-7fcc9ff20c44.png)
+
+## Italy
+![italy](https://user-images.githubusercontent.com/91721237/191485684-32e7f66d-b795-4e34-a4f2-8660f752d3e2.png)
+
+## Germany
+![germany](https://user-images.githubusercontent.com/91721237/191485686-e151b9b6-82f9-4e15-bf57-f69f85c8672a.png)
+
+## China
+![china](https://user-images.githubusercontent.com/91721237/191485687-096063b2-6b80-430d-811d-2e66f24cf88b.png)
