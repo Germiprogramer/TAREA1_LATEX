@@ -16,7 +16,7 @@ def lista_total(PAIS):
                 elif estado_actual < estado_siguiente:
                     evolucion.append('c')
     return(evolucion)
-
+    
 #creamos lista_c y lista_d para ver que ocurre inmediatamente después de que crezca o decrezca respectivamente
 def listas_concretas(PAIS):
     pais = lista_total(PAIS)
@@ -33,8 +33,8 @@ def listas_concretas(PAIS):
     c_en_c = lista_c.count('c')
     d_en_d = lista_d.count('d')
 
-    print("Cuando el GDP de", PAIS, "crece, hay un", (c_en_c/len(lista_c)) * 100, "% de que crezca otra vez, y un", 100 - (c_en_c/len(lista_c)) * 100, "% de que decrezca")
-    print("Cuando el GDP de", PAIS, "decrece, hay un", (d_en_d/len(lista_c)) * 100, "% de que decrezca otra vez, y un", 100 - (d_en_d/len(lista_c)) * 100, "% de que crezca")
+    print("Cuando el GDP de", PAIS, "crece, hay un", round((c_en_c/len(lista_c)) * 100, 2), "% de que crezca otra vez, y un", round(100 - (c_en_c/len(lista_c)) * 100, 2), "% de que decrezca")
+    print("Cuando el GDP de", PAIS, "decrece, hay un", round((d_en_d/len(lista_c)) * 100, 2), "% de que decrezca otra vez, y un", round(100 - (d_en_d/len(lista_c)) * 100, 2), "% de que crezca")
 
 listas_concretas('Nigeria')
 listas_concretas('Spain')
