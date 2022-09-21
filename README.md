@@ -159,7 +159,7 @@ A la hora de interpretar los resultados, lo más importante a tener en cuenta es
 
 Para complementar los puntos 4 y 5, decidimos elegir el dataset "GDP_annual_growth" en el que aparecía el producto interior bruto (GDP) de cada país desde el 1960 hasta el 2020. De esta manera podemos realizar un estudio a través de las cadenas de Markov, para ver cuando crecía y decrecia el GDP de cada país y cómo se veían afectados por la Industria 4.0.
 
-En primer lugar, creamos una función que creaba una lista en la que poníamos "c" o "d" dependiendo de si crecía o decrecía, y luego otra función que contaba las veces que crecía o decrecía después de cada una, es decir, por cada "c" que hubiera en la lista mirábamos si la siguiente era otra "c" o una "d", y lo mismo para las "d", de esta forma creábamos una lista para lo inmedietamente posterior al crecimiento y otra para lo inmediatamente posterior al decrecimiento. Así sólo teníamos que contar el número de "c" y "d" que había en cada lista y teníamos una aproximación de como iba a evolucionar dependiendo de si había crecido o no.
+En primer lugar, creamos una función que creaba una lista en la que poníamos "c" o "d" dependiendo de si crecía o decrecía, y luego otra función que contaba las veces que crecía o decrecía después de cada una, es decir, por cada "c" que hubiera en la lista mirábamos si la siguiente era otra "c" o una "d", y lo mismo para las "d", de esta forma creábamos una lista para lo inmedietamente posterior al crecimiento y otra para lo inmediatamente posterior al decrecimiento. Así sólo teníamos que contar el número de "c" y "d" que había en cada lista y teníamos una aproximación de como había evolucionado dependiendo de si había crecido o no.
 
 El código de esto es:
 ```
