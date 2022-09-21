@@ -10,19 +10,19 @@ En la actualidad, el mundo se encuentra en el inicio de la "Cuarta Revolución I
 
 # Como relacionamos nuestro trabajo con la Industria 4.0
 
-Tal y como se ha explicado anteriormente, estamos hablando de un aumento masivo de la digitalización. Para ello, es clave el uso de distintos dispositivos electrónicos que nos permitan conectarnos a la nube. Pese a que en los países más desarrollados podemos decir que estamos adaptados a las tecnologías eléctricas, otros territorios menos afortunados todavía están en un proceso de descubrimiento de estas herramientas. Por ello, queremos enfocar nuestro trabajo de cara al aumento del uso de la electricidad en los distintos países del mundo.
+Tal y como se ha explicado anteriormente, estamos hablando de un aumento masivo de la digitalización. Para ello, es clave el uso de distintos dispositivos electrónicos que nos permitan conectarnos a la nube. Pese a que en los países más desarrollados podemos decir que estamos adaptados a las tecnologías eléctricas, otros territorios menos afortunados todavía están en un proceso de descubrimiento de estas herramientas. Por ello, queremos enfocar nuestro trabajo de cara al aumento del uso de la electricidad en los distintos países del mundo estudiando el dataset "Access_to_electricity". Además hemos utilizado el dataset "GDP_annual_growth" para ver cómo ha evolucionado el producto interior bruto de cada país, estudiando cómo les ha afectado económicamente esta revolución.
 
 ![1990](https://user-images.githubusercontent.com/91720991/190913648-11d2a935-a271-45bf-a212-5f591e010ea1.png)
 
 ![2018](https://user-images.githubusercontent.com/91720991/190913659-b4a6e9f7-937e-4784-a929-68fadb5230ad.png)
 
-Los gráficos mostrados representan el primer año y el último año registrado en nuestro dataset. A primera vista, se ve como en una diferencia de 28 años, el número de países en los que prácticamente todos los habitantes tienen electricidad (un porcentaje de 90% o más) ha subido a más del doble.
+Los gráficos mostrados representan el primer año y el último año registrado en el dataset "Access_to_electricity". A primera vista, se ve como en una diferencia de 28 años, el número de países en los que prácticamente todos los habitantes tienen electricidad (un porcentaje de 90% o más) ha subido a más del doble.
 
 # Algoritmo Dynamic Time Warping
 
 Uno de los algoritmos a desarrollar en este trabajo es el "Dynamic Time Warping", "Deformación Dinámica del Tiempo" traducido al español. Este algoritmo se usa para medir la similitud de dos muestras de distinto tiempo, sin importar que estas tengan un número distinto de elementos.
 
-Para mostrar el funcionamiento del algoritmo, compararemos los datos de los 5 primeros países del dataset en 2010, y los 7 primeros de 2013. Tendría más sentido pillar los mismos países, pero como queremos mostrar que el DTW funciona para muestras de distinto número de elementos, añadimos dos países más al año 2013. No podemos usar el dataset entero porque se crashea el programa.
+Para mostrar el funcionamiento del algoritmo, compararemos los datos de los 5 primeros países del dataset "Access_to_electricity" en 2010, y los 7 primeros de 2013. Tendría más sentido pillar los mismos países, pero como queremos mostrar que el DTW funciona para muestras de distinto número de elementos, añadimos dos países más al año 2013. No podemos usar el dataset entero porque se crashea el programa.
 
 Para empezar a programar el algoritmo, es preciso definir una distancia entre dos puntos. Nosotros usaremos la distancia euclídea.
 
@@ -157,7 +157,7 @@ A la hora de interpretar los resultados, lo más importante a tener en cuenta es
 
 # Modelos ocultos de Markov
 
-Para complementar los puntos 4 y 5, decidimos elegir un dataset en el que aparecía el producto interior bruto (GDP) de cada país desde el 1960 hasta el 2020. De esta manera podemos realizar un estudio a través de las cadenas de Markov, para ver cuando crecía y decrecia el GDP de cada país.
+Para complementar los puntos 4 y 5, decidimos elegir el dataset "GDP_annual_growth" en el que aparecía el producto interior bruto (GDP) de cada país desde el 1960 hasta el 2020. De esta manera podemos realizar un estudio a través de las cadenas de Markov, para ver cuando crecía y decrecia el GDP de cada país y cómo se veían afectados por la Industria 4.0.
 
 En primer lugar, creamos una función que creaba una lista en la que poníamos "c" o "d" dependiendo de si crecía o decrecía, y luego otra función que contaba las veces que crecía o decrecía después de cada una, es decir, por cada "c" que hubiera en la lista mirábamos si la siguiente era otra "c" o una "d", y lo mismo para las "d", de esta forma creábamos una lista para lo inmedietamente posterior al crecimiento y otra para lo inmediatamente posterior al decrecimiento. Así sólo teníamos que contar el número de "c" y "d" que había en cada lista y teníamos una aproximación de como iba a evolucionar dependiendo de si había crecido o no.
 
