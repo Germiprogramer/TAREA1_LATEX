@@ -39,7 +39,6 @@ def listas_concretas(PAIS):
 listas_concretas('Nigeria')
 listas_concretas('Spain')
 listas_concretas('Kyrgyz Republic')
-listas_concretas('Madagascar')
 listas_concretas('Italy')
 listas_concretas('Germany')
 listas_concretas('China')
