@@ -1,3 +1,5 @@
+# Dynamic time warping
+
 from string import octdigits
 from winreg import HKEY_LOCAL_MACHINE
 import matplotlib.pyplot as plt
@@ -27,7 +29,12 @@ for i in range(len(primeros_paises_ultimoaño)):
 
 #Funcion para calcular la distancia
 def distancia(x,y):
-    distancia = x-y
+  """
+  Test de distancia 
+  >>> distancia(2,1)
+  1
+  """
+  distancia = x-y
     if distancia < 0:
         distancia = - distancia
     else:
@@ -40,7 +47,13 @@ def distancia(x,y):
 
 
 def matriz_distancia(a,b):
-    #elaborar la matriz
+  """  
+  Test de matriz_distancia
+  >>> matriz_distancia(2,2)
+  [,
+   ,]
+  """
+  #elaborar la matriz
     matriz = []
     for i in range(len(b)):
         matriz.append([])
@@ -147,5 +160,9 @@ def warping_path(a,b):
     print("La distancia entre las dos muestras de datos es {}".format(distancia_entre_funciones))
 
     plt.show()
-
+  
 warping_path(primeros_paises_primeraño,primeros_paises_ultimoaño)
+
+if __name__ == "__main__":
+  import doctest
+  doctest.testmode()  
