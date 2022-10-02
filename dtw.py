@@ -29,12 +29,7 @@ for i in range(len(primeros_paises_ultimoaño)):
 
 #Funcion para calcular la distancia
 def distancia(x,y):
-  """
-  Test de distancia 
-  >>> distancia(2,1)
-  1
-  """
-  distancia = x-y
+    distancia = x-y
     if distancia < 0:
         distancia = - distancia
     else:
@@ -47,19 +42,12 @@ def distancia(x,y):
 
 
 def matriz_distancia(a,b):
-  """  
-  Test de matriz_distancia
-  >>> matriz_distancia(2,2)
-  [,
-   ,]
-  """
-  #elaborar la matriz
     matriz = []
     for i in range(len(b)):
         matriz.append([])
         for j in range(len(a)):
             matriz[i].append(None)
-    
+        
     for i in range(len(a)):
         for e in range(len(b)):
             try:
@@ -67,18 +55,17 @@ def matriz_distancia(a,b):
             except:
                 pass
 
-    #graficar la matriz
+        #graficar la matriz
     fig, ax =plt.subplots(1,1)
     data=matriz
     column_labels=a
     ax.axis('tight')
     ax.axis('off')
     ax.table(cellText=data,colLabels=column_labels, rowLabels=b,loc="center")
-    
+        
     plt.show()
     return matriz
 
-matriz_distancia(primeros_paises_primeraño, primeros_paises_ultimoaño)
 
 def matriz_distancia_acumulada(a,b):
     #repetimos el proceso anterior
@@ -160,9 +147,8 @@ def warping_path(a,b):
     print("La distancia entre las dos muestras de datos es {}".format(distancia_entre_funciones))
 
     plt.show()
-  
-warping_path(primeros_paises_primeraño,primeros_paises_ultimoaño)
 
-if __name__ == "__main__":
-  import doctest
-  doctest.testmode()  
+def dtw(a,b):
+    matriz_distancia(a,b)
+    warping_path(a,b)
+
