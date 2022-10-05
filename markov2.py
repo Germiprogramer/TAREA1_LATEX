@@ -18,19 +18,19 @@ def comparar(PAIS1, PAIS2, dataset):
         porcentaje_1m = len(pais1mayor)/((len(pais1mayor)+len(pais2mayor)))
     return round(porcentaje_1m,2)
 
-print("La probabilidad de que el GDP de Germany sea mayor que el de China es", comparar("Germany", "China", 'GDP_annual_growth.csv'))
-print("La probabilidad de que el GDP de Germany sea mayor que el de Spain es", comparar("Germany", "Spain", 'GDP_annual_growth.csv'))
-print("La probabilidad de que el GDP de China sea mayor que el de Germany es", comparar("China", "Germany", 'GDP_annual_growth.csv'))
-print("La probabilidad de que el GDP de China sea mayor que el de Spain es", comparar("China", "Spain", 'GDP_annual_growth.csv'))
-print("La probabilidad de que el GDP de Spain sea mayor que el de Germany es", comparar("Spain", "Germany", 'GDP_annual_growth.csv'))
-print("La probabilidad de que el GDP de Spain sea mayor que el de China es", comparar("Spain", "China", 'GDP_annual_growth.csv'))
+def markov2(PAIS1, PAIS2, PAIS3):
+    print("La probabilidad de que el GDP de", PAIS1, "sea mayor que el de", PAIS2, "es", comparar(PAIS1, PAIS2, 'GDP_annual_growth.csv'))
+    print("La probabilidad de que el GDP de", PAIS1, "sea mayor que el de", PAIS3, "es", comparar(PAIS1, PAIS3, 'GDP_annual_growth.csv'))
+    print("La probabilidad de que el GDP de", PAIS2, "sea mayor que el de", PAIS1, "es", comparar(PAIS2, PAIS1, 'GDP_annual_growth.csv'))
+    print("La probabilidad de que el GDP de", PAIS2, "sea mayor que el de", PAIS3, "es", comparar(PAIS2, PAIS3, 'GDP_annual_growth.csv'))
+    print("La probabilidad de que el GDP de", PAIS3, "sea mayor que el de", PAIS1, "es", comparar(PAIS3, PAIS1, 'GDP_annual_growth.csv'))
+    print("La probabilidad de que el GDP de", PAIS3, "sea mayor que el de", PAIS2, "es", comparar(PAIS3, PAIS2, 'GDP_annual_growth.csv'))
+    
 
-matriz = [[[comparar("Germany", "Germany", 'GDP_annual_growth.csv')],[comparar("Germany", "China", 'GDP_annual_growth.csv')],[comparar("Germany", "Spain", 'GDP_annual_growth.csv')]],
-        [[comparar("China", "Germany", 'GDP_annual_growth.csv')],[comparar("China", "China", 'GDP_annual_growth.csv')],[comparar("China", "Spain", 'GDP_annual_growth.csv')]],
-        [[comparar("Spain", "Germany", 'GDP_annual_growth.csv')],[comparar("Spain", "China", 'GDP_annual_growth.csv')],[comparar("Spain", "Spain", 'GDP_annual_growth.csv')]]]
+    matriz = [[[comparar(PAIS1, PAIS1, 'GDP_annual_growth.csv')],[comparar(PAIS1, PAIS2, 'GDP_annual_growth.csv')],[comparar(PAIS1, PAIS3, 'GDP_annual_growth.csv')]],
+            [[comparar(PAIS2, PAIS1, 'GDP_annual_growth.csv')],[comparar(PAIS2, PAIS2, 'GDP_annual_growth.csv')],[comparar(PAIS2, PAIS3, 'GDP_annual_growth.csv')]],
+            [[comparar(PAIS3, PAIS1, 'GDP_annual_growth.csv')],[comparar(PAIS3, PAIS2, 'GDP_annual_growth.csv')],[comparar(PAIS3, PAIS3, 'GDP_annual_growth.csv')]]]
 
-print("La matriz de transición es:")
-print("       Germany  China   Spain")
-print("Germany", matriz[0])
-print("China", matriz[1])
-print("Spain", matriz[2])
+    print("Esta es la matriz")
+    for i in range(0, len(matriz)):
+        print(matriz[i])

@@ -1,6 +1,7 @@
 import helpers
 from dtw import *
 from markov1 import *
+from markov2 import *
 import pandas as pd
 
 
@@ -20,26 +21,20 @@ def iniciar():
             dtw(primeros_paises_primeraño, primeros_paises_ultimoaño)
 
         if opcion == '2':
-            print("Elige un país de los siguientes: Nigeria, Spain, Kyrgyz Republic, Italy, Germany, China")
+            while True:
+                helpers.limpiar_pantalla()
 
-            pais = input("> ")
+                print("================================================================")
+                print("  Elige para que quieres usar el algoritmo de markov prefieres  ")
+                print("================================================================")
+                print("[1] Probabilidad de que crezca o decrezca el GDP de un pais")
+                print("[2] Comparar el GDP de distintos paises")
+                opcion = input("> ")
 
-            if pais == "Nigeria":
-                listas_concretas('Nigeria')
-            
-            if pais == "Spain":
-                listas_concretas('Spain')
-
-            if pais == "Kyrgyz Republic":
-                listas_concretas('Kyrgyz Republic')
-
-            if pais == "Italy":
-                listas_concretas('Italy')
-
-            if pais == "Germany":
-                listas_concretas('Germany')
-
-            if pais == "China":
-                listas_concretas('China')
-
+                if opcion == '1':
+                    markov1(input("Elija el pais que quiera analizar: "))
+                
+                if opcion =='2':
+                    markov2(input("Elija el primer pais: "), input("Elija el segundo pais: "), input("Elija el tercer pais: "))
+                break
         break
