@@ -1,9 +1,7 @@
 import helpers
-from dtw import *
-from markov1 import *
-from markov2 import *
-import pandas as pd
-
+from carpeta_dtw.dtw import *
+from carpeta_markov.markov1 import *
+from carpeta_markov.markov2 import *
 
 def iniciar():
     while True:

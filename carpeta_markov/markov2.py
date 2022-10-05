@@ -31,6 +31,7 @@ def markov2(PAIS1, PAIS2, PAIS3):
             [[comparar(PAIS2, PAIS1, 'GDP_annual_growth.csv')],[comparar(PAIS2, PAIS2, 'GDP_annual_growth.csv')],[comparar(PAIS2, PAIS3, 'GDP_annual_growth.csv')]],
             [[comparar(PAIS3, PAIS1, 'GDP_annual_growth.csv')],[comparar(PAIS3, PAIS2, 'GDP_annual_growth.csv')],[comparar(PAIS3, PAIS3, 'GDP_annual_growth.csv')]]]
 
+    print('\n')
     print("Esta es la matriz")
     for i in range(0, len(matriz)):
         print(matriz[i])

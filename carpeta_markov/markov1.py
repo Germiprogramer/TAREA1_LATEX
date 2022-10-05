@@ -18,7 +18,7 @@ def lista_total(PAIS):
     return(evolucion)
     
 #creamos lista_c y lista_d para ver que ocurre inmediatamente después de que crezca o decrezca respectivamente
-def listas_concretas(PAIS):
+def markov1(PAIS):
     pais = lista_total(PAIS)
     lista_c = []
     lista_d = []
@@ -35,6 +35,3 @@ def listas_concretas(PAIS):
 
     print("Cuando el GDP de", PAIS, "crece, hay un", round((c_en_c/len(lista_c)) * 100, 2), "% de que crezca otra vez, y un", round(100 - (c_en_c/len(lista_c)) * 100, 2), "% de que decrezca")
     print("Cuando el GDP de", PAIS, "decrece, hay un", round((d_en_d/len(lista_c)) * 100, 2), "% de que decrezca otra vez, y un", round(100 - (d_en_d/len(lista_c)) * 100, 2), "% de que crezca")
-
-def markov1(PAIS):
-    listas_concretas(PAIS)
