@@ -10,7 +10,7 @@ En la actualidad, el mundo se encuentra en el inicio de la "Cuarta Revolución I
 
 # Como relacionamos nuestro trabajo con la Industria 4.0
 
-Tal y como se ha explicado anteriormente, estamos hablando de un aumento masivo de la digitalización. Para ello, es clave el uso de distintos dispositivos electrónicos que nos permitan conectarnos a la nube. Pese a que en los países más desarrollados podemos decir que estamos adaptados a las tecnologías eléctricas, otros territorios menos afortunados todavía están en un proceso de descubrimiento de estas herramientas. Por ello, queremos enfocar nuestro trabajo de cara al aumento del uso de la electricidad en los distintos países del mundo estudiando el dataset "Access_to_electricity". Además hemos utilizado el dataset "GDP_annual_growth" para ver cómo ha evolucionado el producto interior bruto de cada país, estudiando cómo les ha afectado económicamente esta revolución.
+Tal y como se ha explicado anteriormente, estamos hablando de un aumento masivo de la digitalización. Para ello, es clave el uso de distintos dispositivos electrónicos que nos permitan conectarnos a la nube. Pese a que en los países más desarrollados podemos decir que estamos adaptados a las tecnologías eléctricas, otros territorios menos afortunados todavía están en un proceso de descubrimiento de estas herramientas. Por ello, queremos enfocar nuestro trabajo de cara al aumento del uso de la electricidad en los distintos países del mundo estudiando el dataset "Access_to_electricity". Además hemos utilizado el dataset "GDP_annual_growth" para ver cómo ha evolucionado el producto interior bruto de cada país, y para comparar distintos paises, estudiando cómo les ha afectado económicamente esta revolución.
 
 ![1990](https://user-images.githubusercontent.com/91720991/190913648-11d2a935-a271-45bf-a212-5f591e010ea1.png)
 
@@ -157,9 +157,9 @@ A la hora de interpretar los resultados, lo más importante a tener en cuenta es
 
 # Modelos ocultos de Markov
 
-Para complementar los puntos 4 y 5, decidimos elegir el dataset "GDP_annual_growth" en el que aparecía el producto interior bruto (GDP) de cada país desde el 1960 hasta el 2020. De esta manera podemos realizar un estudio a través de las cadenas de Markov, para ver cuando crecía y decrecia el GDP de cada país y cómo se veían afectados por la Industria 4.0.
+Para complementar los puntos 4 y 5, decidimos elegir el dataset "GDP_annual_growth" en el que aparecía el producto interior bruto (GDP) de cada país desde el 1960 hasta el 2020. De esta manera podemos realizar un estudio a través de las cadenas de Markov, para ver cuando crecía y decrecia el GDP de cada país, además mediante otra cadena de Markov comparamos distintos paises, y mediante estos dos códigos observamos cómo se veían afectados por la Industria 4.0.
 
-En primer lugar, creamos una función que creaba una lista en la que poníamos "c" o "d" dependiendo de si crecía o decrecía, y luego otra función que contaba las veces que crecía o decrecía después de cada una, es decir, por cada "c" que hubiera en la lista mirábamos si la siguiente era otra "c" o una "d", y lo mismo para las "d", de esta forma creábamos una lista para lo inmedietamente posterior al crecimiento y otra para lo inmediatamente posterior al decrecimiento. Así sólo teníamos que contar el número de "c" y "d" que había en cada lista y teníamos una aproximación de como había evolucionado dependiendo de si había crecido o no.
+Para ver cuando crece o decrece el GDP de cada país, en primer lugar, creamos una función que creaba una lista en la que poníamos "c" o "d" dependiendo de si crecía o decrecía, y luego otra función que contaba las veces que crecía o decrecía después de cada una, es decir, por cada "c" que hubiera en la lista mirábamos si la siguiente era otra "c" o una "d", y lo mismo para las "d", de esta forma creábamos una lista para lo inmedietamente posterior al crecimiento y otra para lo inmediatamente posterior al decrecimiento. Así sólo teníamos que contar el número de "c" y "d" que había en cada lista y teníamos una aproximación de como había evolucionado dependiendo de si había crecido o no.
 
 El código de esto es:
 ```
@@ -183,7 +183,7 @@ def lista_total(PAIS):
     return(evolucion)
     
 #creamos lista_c y lista_d para ver que ocurre inmediatamente después de que crezca o decrezca respectivamente
-def listas_concretas(PAIS):
+def markov1(PAIS):
     pais = lista_total(PAIS)
     lista_c = []
     lista_d = []
@@ -200,16 +200,22 @@ def listas_concretas(PAIS):
 
     print("Cuando el GDP de", PAIS, "crece, hay un", round((c_en_c/len(lista_c)) * 100, 2), "% de que crezca otra vez, y un", round(100 - (c_en_c/len(lista_c)) * 100, 2), "% de que decrezca")
     print("Cuando el GDP de", PAIS, "decrece, hay un", round((d_en_d/len(lista_c)) * 100, 2), "% de que decrezca otra vez, y un", round(100 - (d_en_d/len(lista_c)) * 100, 2), "% de que crezca")
-
-listas_concretas('Nigeria')
-listas_concretas('Spain')
-listas_concretas('Kyrgyz Republic')
-listas_concretas('Italy')
-listas_concretas('Germany')
-listas_concretas('China')
 ```
 
-Una vez hecho esto, creamos unos gráficos en los que aparecían las cadenas de Markov de algunos paises.
+Una vez hecho esto, ejecutamos este codigo con los paises que queriamos analizar y creamos unos gráficos en los que aparecían las cadenas de Markov de algunos paises.
+El codigo ejecutado es:
+```
+from markov1 import *
+
+markov1('China')
+markov1('Germany')
+markov1('Italy')
+markov1('Kyrgyz Republic')
+markov1('Nigeria')
+markov1('Spain')
+```
+
+Los graficos son los siguientes.
 
 ## Nigeria
 ![nigeria](https://user-images.githubusercontent.com/91721237/191485672-d6375630-4777-4c96-acf9-d8cb22de222b.png)
@@ -228,3 +234,45 @@ Una vez hecho esto, creamos unos gráficos en los que aparecían las cadenas de 
 
 ## China
 ![china](https://user-images.githubusercontent.com/91721237/191485687-096063b2-6b80-430d-811d-2e66f24cf88b.png)
+
+Para comparar distintos paises creamos un código que comparaba uno a uno el valor del GDP de cada pais por cada año, y de esta forma calculabamos la probabilidad de que el GDP de un pais fuera mayor o menor que otro.
+
+El codigo de esto es:
+```
+import pandas as pd
+
+def comparar(PAIS1, PAIS2, dataset):
+    df = pd.read_csv(dataset)
+    df = df.fillna(0)
+    pais1 = df.loc[df['Country Name'] == PAIS1]
+    pais2 = df.loc[df['Country Name'] == PAIS2]
+    pais1mayor = []
+    pais2mayor = []
+    for i in range(4, 65):
+        if float(pais1.iloc[:,i]) > float(pais2.iloc[:,i]):
+            pais1mayor.append(True)
+        elif float(pais1.iloc[:,i]) < float(pais2.iloc[:,i]):
+            pais2mayor.append(True)
+    if pais1mayor == [] and pais2mayor == []:
+        porcentaje_1m = 0
+    else:
+        porcentaje_1m = len(pais1mayor)/((len(pais1mayor)+len(pais2mayor)))
+    return round(porcentaje_1m,2)
+
+def markov2(PAIS1, PAIS2, PAIS3):
+    print("La probabilidad de que el GDP de", PAIS1, "sea mayor que el de", PAIS2, "es", comparar(PAIS1, PAIS2, 'GDP_annual_growth.csv'))
+    print("La probabilidad de que el GDP de", PAIS1, "sea mayor que el de", PAIS3, "es", comparar(PAIS1, PAIS3, 'GDP_annual_growth.csv'))
+    print("La probabilidad de que el GDP de", PAIS2, "sea mayor que el de", PAIS1, "es", comparar(PAIS2, PAIS1, 'GDP_annual_growth.csv'))
+    print("La probabilidad de que el GDP de", PAIS2, "sea mayor que el de", PAIS3, "es", comparar(PAIS2, PAIS3, 'GDP_annual_growth.csv'))
+    print("La probabilidad de que el GDP de", PAIS3, "sea mayor que el de", PAIS1, "es", comparar(PAIS3, PAIS1, 'GDP_annual_growth.csv'))
+    print("La probabilidad de que el GDP de", PAIS3, "sea mayor que el de", PAIS2, "es", comparar(PAIS3, PAIS2, 'GDP_annual_growth.csv'))
+    
+
+    matriz = [[[comparar(PAIS1, PAIS1, 'GDP_annual_growth.csv')],[comparar(PAIS1, PAIS2, 'GDP_annual_growth.csv')],[comparar(PAIS1, PAIS3, 'GDP_annual_growth.csv')]],
+            [[comparar(PAIS2, PAIS1, 'GDP_annual_growth.csv')],[comparar(PAIS2, PAIS2, 'GDP_annual_growth.csv')],[comparar(PAIS2, PAIS3, 'GDP_annual_growth.csv')]],
+            [[comparar(PAIS3, PAIS1, 'GDP_annual_growth.csv')],[comparar(PAIS3, PAIS2, 'GDP_annual_growth.csv')],[comparar(PAIS3, PAIS3, 'GDP_annual_growth.csv')]]]
+
+    print("Esta es la matriz")
+    for i in range(0, len(matriz)):
+        print(matriz[i])
+```        
