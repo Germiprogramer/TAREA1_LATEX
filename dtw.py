@@ -6,27 +6,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-electricidad = pd.read_csv("Access_to_electricity.csv")
-#limpieza de datos
-electricidad = electricidad.fillna(0)
-
-primer_año = list(electricidad["2010"])
-ultimo_año = list(electricidad["2013"])
-
-primeros_paises_primeraño = []
-primeros_paises_ultimoaño = []
-
-for i in range(5):
-    primeros_paises_primeraño.append(primer_año[i])
-for j in range(7):
-    primeros_paises_ultimoaño.append(ultimo_año[j])
-
-for i in range(len(primeros_paises_primeraño)):
-    primeros_paises_primeraño[i] = round(primeros_paises_primeraño[i],2)
-for i in range(len(primeros_paises_ultimoaño)):
-    primeros_paises_ultimoaño[i] = round(primeros_paises_ultimoaño[i],2)
-
-
 #Funcion para calcular la distancia
 def distancia(x,y):
     distancia = x-y
@@ -149,6 +128,26 @@ def warping_path(a,b):
     plt.show()
 
 def dtw(a,b):
-    matriz_distancia(a,b)
-    warping_path(a,b)
+    electricidad = pd.read_csv("Access_to_electricity.csv")
+    #limpieza de datos
+    electricidad = electricidad.fillna(0)
+
+    primer_año = list(electricidad[a])
+    ultimo_año = list(electricidad[b])
+
+    primeros_paises_primeraño = []
+    primeros_paises_ultimoaño = []
+
+    for i in range(5):
+        primeros_paises_primeraño.append(primer_año[i])
+    for j in range(7):
+        primeros_paises_ultimoaño.append(ultimo_año[j])
+
+    for i in range(len(primeros_paises_primeraño)):
+        primeros_paises_primeraño[i] = round(primeros_paises_primeraño[i],2)
+    for i in range(len(primeros_paises_ultimoaño)):
+        primeros_paises_ultimoaño[i] = round(primeros_paises_ultimoaño[i],2)
+
+    matriz_distancia(primeros_paises_primeraño, primeros_paises_ultimoaño)
+    warping_path(primeros_paises_primeraño, primeros_paises_ultimoaño)
 

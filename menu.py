@@ -18,7 +18,7 @@ def iniciar():
         opcion = input("> ")
 
         if opcion == '1':
-            dtw(primeros_paises_primeraño, primeros_paises_ultimoaño)
+            dtw(str(input("Elija el primer año: ")), str(input("Elija el segundo año: ")))
 
         if opcion == '2':
             while True:
