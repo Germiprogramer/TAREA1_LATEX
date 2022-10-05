@@ -1,3 +1,5 @@
+# Dynamic time warping
+
 from string import octdigits
 from winreg import HKEY_LOCAL_MACHINE
 import matplotlib.pyplot as plt
@@ -40,13 +42,12 @@ def distancia(x,y):
 
 
 def matriz_distancia(a,b):
-    #elaborar la matriz
     matriz = []
     for i in range(len(b)):
         matriz.append([])
         for j in range(len(a)):
             matriz[i].append(None)
-    
+        
     for i in range(len(a)):
         for e in range(len(b)):
             try:
@@ -54,18 +55,17 @@ def matriz_distancia(a,b):
             except:
                 pass
 
-    #graficar la matriz
+        #graficar la matriz
     fig, ax =plt.subplots(1,1)
     data=matriz
     column_labels=a
     ax.axis('tight')
     ax.axis('off')
     ax.table(cellText=data,colLabels=column_labels, rowLabels=b,loc="center")
-    
+        
     plt.show()
     return matriz
 
-matriz_distancia(primeros_paises_primeraño, primeros_paises_ultimoaño)
 
 def matriz_distancia_acumulada(a,b):
     #repetimos el proceso anterior
@@ -148,4 +148,7 @@ def warping_path(a,b):
 
     plt.show()
 
-warping_path(primeros_paises_primeraño,primeros_paises_ultimoaño)
+def dtw(a,b):
+    matriz_distancia(a,b)
+    warping_path(a,b)
+

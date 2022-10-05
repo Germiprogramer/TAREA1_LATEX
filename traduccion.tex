@@ -3,15 +3,15 @@
 \usepackage{float}
 \usepackage{graphicx}
 \graphicspath{ {images/} }
-\title{Un algoritmo de dos fases para reconocer actividades humanas en el contexto de la Industria 4.0 y los procesos antropogénicos.}
-\author{Borja Bordel\textsuperscript{1}, Ramón Alcarria1\textsuperscript{1}, Diego Sánchez-de-Rivera1\textsuperscript{1}}
+\title{Un algoritmo de dos fases para reconocer actividades humanas en el contexto de la Industria 4.0 y los procesos antropogenicos.}
+\author{Borja Bordel\textsuperscript{1}, Ramon Alcarria1\textsuperscript{1}, Diego Sanchez-de-Rivera1\textsuperscript{1}}
 
 
 
 \pagestyle{empty}
 \begin{center}
 \maketitle
-\textsuperscript{1}Universidad Politécnica de Madrid
+\textsuperscript{1}Universidad Politecnica de Madrid
 \\Madrid, España
 \\bbordel@dit.upm.es, ramon.alcarria@upm.es, diegosanchez@dit.upm.es
 \end{center}
@@ -19,131 +19,131 @@
 
 \begin{document}
 
-\textbf{Resumen} Sistemas industriales futuros, una revolución conocida como Industria 4.0 son concebidos para integrar a las personas en un mundo cibernético como prosumidores (proveedores de servicio y consumidores). En este contexto, los procesos antropogénicos aparecen como una realidad esencial y un instrumento para crear bucles de información de retroalimentación entre el subsistema social (gente) y el subsistema cibernético (componentes tecnológicos) son requeridos. Aunque muchos instrumentos distintos han sido propuestos, a día de hoy las técnicas de reconocimiento de patrones  son las más prometedoras. Por ejemplo, son dependientes del hardware seleccionado para adquirir información de los usuarios; o presentan un límite de precisión del proceso de reconocimiento. Para abordar esta situación, en este artículo se propone un algoritmo de dos fases para integrar a la gente en los sistemas de la Industria 4.0 y los procesos antropogénicos. El algoritmo define acciones complejas como composición de movimientos simples. Las acciones complejas son reconocidas usando Modelos Ocultos de Markov, y los movimientos simples son reconocidos usando la Deformación Dinámica del Tiempo. De esa forma, sólo los movimientos dependen del hardware para captar la información, y la precisión del reconocimiento de acciones complejas se vuelve enormemente mejorada. Una validación experimental real es también llevada a cabo para evaluar y comparar la presentación de la solución propuesta.
+\textbf{Resumen} Sistemas industriales futuros, una revolucion conocida como Industria 4.0 son concebidos para integrar a las personas en un mundo cibernetico como prosumidores (proveedores de servicio y consumidores). En este contexto, los procesos antropogenicos aparecen como una realidad esencial y un instrumento para crear bucles de informacion de retroalimentacion entre el subsistema social (gente) y el subsistema cibernetico (componentes tecnologicos) son requeridos. Aunque muchos instrumentos distintos han sido propuestos, a dia de hoy las tecnicas de reconocimiento de patrones  son las mas prometedoras. Por ejemplo, son dependientes del hardware seleccionado para adquirir informacion de los usuarios; o presentan un limite de precision del proceso de reconocimiento. Para abordar esta situacion, en este articulo se propone un algoritmo de dos fases para integrar a la gente en los sistemas de la Industria 4.0 y los procesos antropogenicos. El algoritmo define acciones complejas como composicion de movimientos simples. Las acciones complejas son reconocidas usando Modelos Ocultos de Markov, y los movimientos simples son reconocidos usando la Deformacion Dinamica del Tiempo. De esa forma, solo los movimientos dependen del hardware para captar la informacion, y la precision del reconocimiento de acciones complejas se vuelve enormemente mejorada. Una validacion experimental real es tambien llevada a cabo para evaluar y comparar la presentacion de la solucion propuesta.
 
 \bigskip
-\textbf{Palabras clave:}Industria 4.0; reconocimiento de patrones, la Deformación Dinámica del Tiempo; Inteligencia Artificial; Modelos Ocultos de Markov
+\textbf{Palabras clave:}Industria 4.0; reconocimiento de patrones, la Deformacion Dinamica del Tiempo; Inteligencia Artificial; Modelos Ocultos de Markov
 
 
 
-\section{Introducción}
+\section{Introduccion}
 
-Industria 4.0 [1] hace referencia al uso de Sistemas Ciberfísicos (unión de procesos físicos y cibernéticos) [2] como el componente tecnológico principal en soluciones digitales futuras, principalmente (pero no únicamente) en escenarios industriales. Normalmente, la digitalización ha causado, al final, que los trabajadores en las líneas de ensamble fueran sustituidos por robots durante la tercera revolución industrial.
-Sin embargo, algunas aplicaciones industriales no pueden basarse en soluciones tecnológicas, siendo el trabajo humano aún esencial [3]. Los productos hechos a mano son un ejemplo de las aplicaciones donde la presencia del trabajo humano es esencial. Estos sectores industriales, en cualquier caso, debe ser también integrado en la cuarta revolución industrial. De la unión de los Sistemas Ciberfísicos (CPS) y los humanos actuando como proveedores de servicio (trabajos activos), surgimiento del CPS humanizado [4]. En estos nuevos sistemas, los procesos antropogénicos son permitidos [5]; i.e. los procesos que son conocidos, ejecutados y manejados por personas (a pesar de que deben ser vigilados por mecanismos digitales).
-Para crear una integración real entre personas y tecnología, y mover la ejecución del proceso del subsistema social (humanos) al mundo cibernético (componentes de hardware y software), las técnicas de la extracción de la información son necesarias. Muchas soluciones diferentes y acercamientos han sido reportados durante los últimos años, pero las técnicas de reconocimiento de patrones son las más prometedoras.
-El uso de Inteligencia Artificial, modelos estadísticos y otros instrumentos similares han permitido un real e increíble desarrollo de soluciones de reconocimiento de patrones, pero algunos desafíos todavía siguen pendientes.
-Primero, las técnicas de reconocimiento de patrones dependen del hardware subyacente para captar información. La estructura y los cambios en el proceso de aprendizaje si (por ejemplo) en vez de acelerómetros que  consideramos sensores infrarrojos. Esto es muy problemático debido a que las tecnologías de hardware evolucionan mucho más rápido que las soluciones de software.
-Y, segundo, hay un límite en la precisión en el proceso de reconocimiento. En realidad, como las acciones humanas se vuelven más complicadas, más variables y más modelos complejos son requeridos para reconocerlos. Esta aproximación genera grandes problemas de optimización cuyo error residual es más alto según aumenta el número de variables; lo que lo que provoca una disminución en la tasa de éxito del reconocimiento [6]. En conclusión, las matemáticas (no el software, por lo que, no depende de la implementación) fuerza una cierta precisión para el proceso del reconocimiento de patrones haciendo que las acciones sean estudiadas. Para prevenir esta situación, se debe considerar un número más bajo de variables, pero esto también reduce la complejidad de las acciones que deben ser analizadas; una solución que no es aceptable en escenarios industriales donde las actividades de producción complejas son desarrolladas.
-Por lo tanto, el objetivo de este artículo es describir un nuevo algoritmo de reconocimiento de patrones abordando estos dos problemas básicos. El mecanismo propuesto define las acciones como una composición de movimientos simples. Los movimientos simples son reconocidos usando las técnicas de la Deformación Dinámica del Tiempo (DTW) [7]. Este proceso es dependiente de un hardware concreto para captar la información; pero la DTW es muy flexible y actualizar el repositorio de patrones es suficiente para reconfigurar todo el algoritmo. Luego las acciones complejas son reconocidas como combinaciones de movimientos simples a través de los Modelos Ocultos de Markov (HMM) [8]. Estos modelos son totalmente independientes de las tecnologías de hardware, ya que sólo se consideran como acciones simples. Este acercamiento de dos fases también reduce la complejidad de los modelos, incrementando la precisión y la tasa de éxito en el proceso de reconocimiento.
-El resto del artículo está organizado de esta manera: La sección 2 describe el estado del arte en el reconocimiento de patrones para las actividades humanas; la sección 3 describe la solución propuesta, incluyendo las dos fases definidas; la sección 4 presenta un validación experimental usando un escenario real y usuarios finales; y la sección 5 cierra el artículo.
+Industria 4.0 [1] hace referencia al uso de Sistemas Ciberfisicos (union de procesos fisicos y ciberneticos) [2] como el componente tecnologico principal en soluciones digitales futuras, principalmente (pero no unicamente) en escenarios industriales. Normalmente, la digitalizacion ha causado, al final, que los trabajadores en las lineas de ensamble fueran sustituidos por robots durante la tercera revolucion industrial.
+Sin embargo, algunas aplicaciones industriales no pueden basarse en soluciones tecnologicas, siendo el trabajo humano aun esencial [3]. Los productos hechos a mano son un ejemplo de las aplicaciones donde la presencia del trabajo humano es esencial. Estos sectores industriales, en cualquier caso, debe ser tambien integrado en la cuarta revolucion industrial. De la union de los Sistemas Ciberfisicos (CPS) y los humanos actuando como proveedores de servicio (trabajos activos), surgimiento del CPS humanizado [4]. En estos nuevos sistemas, los procesos antropogenicos son permitidos [5]; i.e. los procesos que son conocidos, ejecutados y manejados por personas (a pesar de que deben ser vigilados por mecanismos digitales).
+Para crear una integracion real entre personas y tecnologia, y mover la ejecucion del proceso del subsistema social (humanos) al mundo cibernetico (componentes de hardware y software), las tecnicas de la extraccion de la informacion son necesarias. Muchas soluciones diferentes y acercamientos han sido reportados durante los ultimos años, pero las tecnicas de reconocimiento de patrones son las mas prometedoras.
+El uso de Inteligencia Artificial, modelos estadisticos y otros instrumentos similares han permitido un real e increible desarrollo de soluciones de reconocimiento de patrones, pero algunos desafios todavia siguen pendientes.
+Primero, las tecnicas de reconocimiento de patrones dependen del hardware subyacente para captar informacion. La estructura y los cambios en el proceso de aprendizaje si (por ejemplo) en vez de acelerometros que  consideramos sensores infrarrojos. Esto es muy problematico debido a que las tecnologias de hardware evolucionan mucho mas rapido que las soluciones de software.
+Y, segundo, hay un limite en la precision en el proceso de reconocimiento. En realidad, como las acciones humanas se vuelven mas complicadas, mas variables y mas modelos complejos son requeridos para reconocerlos. Esta aproximacion genera grandes problemas de optimizacion cuyo error residual es mas alto segun aumenta el numero de variables; lo que lo que provoca una disminucion en la tasa de exito del reconocimiento [6]. En conclusion, las matematicas (no el software, por lo que, no depende de la implementacion) fuerza una cierta precision para el proceso del reconocimiento de patrones haciendo que las acciones sean estudiadas. Para prevenir esta situacion, se debe considerar un numero mas bajo de variables, pero esto tambien reduce la complejidad de las acciones que deben ser analizadas; una solucion que no es aceptable en escenarios industriales donde las actividades de produccion complejas son desarrolladas.
+Por lo tanto, el objetivo de este articulo es describir un nuevo algoritmo de reconocimiento de patrones abordando estos dos problemas basicos. El mecanismo propuesto define las acciones como una composicion de movimientos simples. Los movimientos simples son reconocidos usando las tecnicas de la Deformacion Dinamica del Tiempo (DTW) [7]. Este proceso es dependiente de un hardware concreto para captar la informacion; pero la DTW es muy flexible y actualizar el repositorio de patrones es suficiente para reconfigurar todo el algoritmo. Luego las acciones complejas son reconocidas como combinaciones de movimientos simples a traves de los Modelos Ocultos de Markov (HMM) [8]. Estos modelos son totalmente independientes de las tecnologias de hardware, ya que solo se consideran como acciones simples. Este acercamiento de dos fases tambien reduce la complejidad de los modelos, incrementando la precision y la tasa de exito en el proceso de reconocimiento.
+El resto del articulo esta organizado de esta manera: La seccion 2 describe el estado del arte en el reconocimiento de patrones para las actividades humanas; la seccion 3 describe la solucion propuesta, incluyendo las dos fases definidas; la seccion 4 presenta un validacion experimental usando un escenario real y usuarios finales; y la seccion 5 cierra el articulo.
 
 
-\section*{2  Estado del arte del reconocimiento de un patrón}
-\ Varias técnicas de reconocimiento de patrones para actividades humanas han sido desarrolladas. Sin embargo la propuesta más usual puede clasificarse en cinco categorias básicas [9]: (i) Cadenas de Markov; (ii) La Cadena Aleatoria 
+\section*{2  Estado del arte del reconocimiento de un patron}
+\ Varias tecnicas de reconocimiento de patrones para actividades humanas han sido desarrolladas. Sin embargo la propuesta mas usual puede clasificarse en cinco categorias basicas [9]: (i) Cadenas de Markov; (ii) La Cadena Aleatoria 
 Condicional de Saltos; (iii) Patrones Emergrntes; (iv) El Campo Aleatorio Condicional; (v) Clasificadores Bayesianos.
 
-\ De hecho, la mayoría de los autores proponen el uso de Cadenas de Markov(HMM) para modelar actividades humanas.
-      HMM permite modelar acciones como cadenas de Markov [10][11]. Básicamente,
+\ De hecho, la mayoria de los autores proponen el uso de Cadenas de Markov(HMM) para modelar actividades humanas.
+      HMM permite modelar acciones como cadenas de Markov [10][11]. Basicamente,
 HMM genera estados ocultos a partir de datos observables.
 En particular, el objetivo final de
-esta técnica es para construir la secuencia de estados ocultos que se ajusta a una cierta secuencia de datos.Para finalmente definir todo el modelo, HMM debe deducir a partir de los datos los modelos paramétricos de manera confiable. La figura 1  muestra una representación esquemática del funcionamiento del HMM. Cuando se reconocen las actividades humanas, las acciones que componen las actividades son los estados ocultos y las salidas de los sensores son los datos que se estudian. HMM, además, permitir el uso de técnicas de entrenamiento considerando conocimientos previos sobre el modelo. Este entrenamiento a veces es esencial para “inducir” todas las posibles secuencias de datos requeridas para calcular el HMM. Finalmente, es muy importante tener en cuenta que los HMM aislados simples se pueden combinar para crear modelos más grandes y complejos.
+esta tecnica es para construir la secuencia de estados ocultos que se ajusta a una cierta secuencia de datos.Para finalmente definir todo el modelo, HMM debe deducir a partir de los datos los modelos parametricos de manera confiable. La figura 1  muestra una representacion esquematica del funcionamiento del HMM. Cuando se reconocen las actividades humanas, las acciones que componen las actividades son los estados ocultos y las salidas de los sensores son los datos que se estudian. HMM, ademas, permitir el uso de tecnicas de entrenamiento considerando conocimientos previos sobre el modelo. Este entrenamiento a veces es esencial para “inducir” todas las posibles secuencias de datos requeridas para calcular el HMM. Finalmente, es muy importante tener en cuenta que los HMM aislados simples se pueden combinar para crear modelos mas grandes y complejos.
 
 
 \ \begin{figure}[H]
     \centering
     \includegraphics{latex2.png}
-    \caption{Representación gráfica de un HMM}
+    \caption{Representacion grafica de un HMM}
     \label{fig:my_label}
 \end{figure}
 
-\ Los HMM, sin embargo, son inútiles para modelar ciertas actividades concurrentes, por lo que otros autores han reportado una nueva técnica denominada Conditional Random Field (CRF).
+\ Los HMM, sin embargo, son inutiles para modelar ciertas actividades concurrentes, por lo que otros autores han reportado una nueva tecnica denominada Conditional Random Field (CRF).
 CRF se emplean para modelar aquellas actividades que presentan acciones concurrentes o, en
-general, múltiples acciones que interactúan [12][13]. Además, HMM requiere un gran esfuerzo de entrenamiento para descubrir todos los estados ocultos posibles. Para resolver estos problemas, el campo aleatorio condicional (CRF) emplea probabilidades condicionales en lugar de distribuciones de probabilidad conjunta. Así, las actividades cuyas acciones se desarrollen en cualquier orden se puede modelar fácilmente. A diferencia de las cadenas en HMM, CRF emplea gráficos acíclicos y permite la integración de estados ocultos condicionales (estados que dependen de observaciones pasadas y/o futuras). 
+general, multiples acciones que interactuan [12][13]. Ademas, HMM requiere un gran esfuerzo de entrenamiento para descubrir todos los estados ocultos posibles. Para resolver estos problemas, el campo aleatorio condicional (CRF) emplea probabilidades condicionales en lugar de distribuciones de probabilidad conjunta. Asi, las actividades cuyas acciones se desarrollen en cualquier orden se puede modelar facilmente. A diferencia de las cadenas en HMM, CRF emplea graficos aciclicos y permite la integracion de estados ocultos condicionales (estados que dependen de observaciones pasadas y/o futuras). 
 
 
 
 
-\ Los CRF, por otro lado, siguen siendo inútiles para modelar ciertos comportamientos, por lo que algunas propuestas generalizan este concepto y proponen el Skip Chain Conditional Random Field (SCCRF). SCCRF es una técnica de reconocimiento de patrones, más general que CRF, que permite modelar actividades que no son una secuencia de acciones en la naturaleza [14]. Esta técnica trata de capturar dependencias de largo alcance (cadena de salto); y puede entenderse como el producto de diferentes cadenas lineales. Sin embargo, calcular este producto es bastante pesado y complicado, por lo que esta técnica suele ser demasiado costosa desde el punto de vista computacional para implementarla en pequeños sistemas integrados. 
+\ Los CRF, por otro lado, siguen siendo inutiles para modelar ciertos comportamientos, por lo que algunas propuestas generalizan este concepto y proponen el Skip Chain Conditional Random Field (SCCRF). SCCRF es una tecnica de reconocimiento de patrones, mas general que CRF, que permite modelar actividades que no son una secuencia de acciones en la naturaleza [14]. Esta tecnica trata de capturar dependencias de largo alcance (cadena de salto); y puede entenderse como el producto de diferentes cadenas lineales. Sin embargo, calcular este producto es bastante pesado y complicado, por lo que esta tecnica suele ser demasiado costosa desde el punto de vista computacional para implementarla en pequeños sistemas integrados. 
 
-\ Otras propuestas emplean técnicas de descripción de mayor nivel como Emerging Patterns (EP). Para la mayoría de los autores, EP es una técnica que describe actividades como vectores de parámetros y sus valores correspondientes (ubicación, objeto, etc.) [15]. Usando
-distancias entre vectores es posible calcular y reconocer acciones desarrolladas por personas. Finalmente, otros autores han empleado con éxito técnicas secundarias como los clasificadores bayesianos [16], que identifican actividades haciendo una correspondencia entre las actividades humanas y las salidas de sensores más probables mientras estas acciones
-se realizan considerando que todos los sensores son independientes. Los árboles de decisión [17], las extensiones HMM [18] y otras tecnologías similares también se han estudiado en la literatura, aunque estas propuestas son escasas. 
+\ Otras propuestas emplean tecnicas de descripcion de mayor nivel como Emerging Patterns (EP). Para la mayoria de los autores, EP es una tecnica que describe actividades como vectores de parametros y sus valores correspondientes (ubicacion, objeto, etc.) [15]. Usando
+distancias entre vectores es posible calcular y reconocer acciones desarrolladas por personas. Finalmente, otros autores han empleado con exito tecnicas secundarias como los clasificadores bayesianos [16], que identifican actividades haciendo una correspondencia entre las actividades humanas y las salidas de sensores mas probables mientras estas acciones
+se realizan considerando que todos los sensores son independientes. Los arboles de decision [17], las extensiones HMM [18] y otras tecnologias similares tambien se han estudiado en la literatura, aunque estas propuestas son escasas. 
 
-\ Entre todas las tecnologías descritas, HMM no es la más poderosa. Sin embargo, encaja a la perfección con la Industria 4.0, donde las actuaciones son muy complejas pero muy estructuradas y ordenadas (según protocolos de empresa, políticas de eficiencia, etc.). Además, se requiere una retroalimentación rápida (a veces incluso en tiempo real) para garantizar que los procesos impulsados por humanos funcionen correctamente antes de que ocurra una falla crítica global. Por lo tanto, las soluciones computacionalmente costosas no son un enfoque válido, y estamos seleccionando HMM como tecnología de base principal. Para preservar su carácter liviano y, al mismo tiempo, poder modelar actividades complejas, introducimos un esquema de reconocimiento de dos fases que permite dividir acciones complejas en dos pasos más simples.
+\ Entre todas las tecnologias descritas, HMM no es la mas poderosa. Sin embargo, encaja a la perfeccion con la Industria 4.0, donde las actuaciones son muy complejas pero muy estructuradas y ordenadas (segun protocolos de empresa, politicas de eficiencia, etc.). Ademas, se requiere una retroalimentacion rapida (a veces incluso en tiempo real) para garantizar que los procesos impulsados por humanos funcionen correctamente antes de que ocurra una falla critica global. Por lo tanto, las soluciones computacionalmente costosas no son un enfoque valido, y estamos seleccionando HMM como tecnologia de base principal. Para preservar su caracter liviano y, al mismo tiempo, poder modelar actividades complejas, introducimos un esquema de reconocimiento de dos fases que permite dividir acciones complejas en dos pasos mas simples.
 
 
 \section*{3  Algoritmo de reconocimiento de patrones de dos fases}
 
-Con el fin de (i) independizar el proceso de reconocimiento de patrones de los dispositivos de hardware empleados para capturar información, (ii) permitir el reconocimiento de acciones complejas y (iii) preservar el carácter liviano de los modelos seleccionados, la solución propuesta presenta una arquitectura con tres capas diferentes (ver Figura 2).
+Con el fin de (i) independizar el proceso de reconocimiento de patrones de los dispositivos de hardware empleados para capturar informacion, (ii) permitir el reconocimiento de acciones complejas y (iii) preservar el caracter liviano de los modelos seleccionados, la solucion propuesta presenta una arquitectura con tres capas diferentes (ver Figura 2).
 
 
 \ \begin{figure}[H]
     \centering
     \includegraphics{latex4.png}
-    \caption{Arquitectura de la solución de reconocimiento de patrones propuesta}
+    \caption{Arquitectura de la solucion de reconocimiento de patrones propuesta}
     \label{fig:my_label}
 \end{figure}
 
 
-\ La capa más baja incluye la plataforma de hardware. Los dispositivos de monitoreo como acelerómetros, teléfonos inteligentes, sensores infrarrojos, etiquetas RFID, etc., se implementan para capturar información sobre el comportamiento de las personas. Las salidas de estos dispositivos crean
-secuencias de datos físicos cuyo formato, rango dinámico, etc., dependen totalmente de las tecnologías de hardware seleccionadas.
+\ La capa mas baja incluye la plataforma de hardware. Los dispositivos de monitoreo como acelerometros, telefonos inteligentes, sensores infrarrojos, etiquetas RFID, etc., se implementan para capturar informacion sobre el comportamiento de las personas. Las salidas de estos dispositivos crean
+secuencias de datos fisicos cuyo formato, rango dinamico, etc., dependen totalmente de las tecnologias de hardware seleccionadas.
 
 
-\ Estas secuencias de datos físicos luego se procesan en la capa intermedia utilizando técnicas DTW. Como resultado, para cada secuencia de datos físicos, un simple movimiento o acción es reconocido. Estas acciones simples se representan mediante un formato de datos binarios para que la solución sea lo más ligera posible. El software de este nivel debe modificarse cada
-vez que se actualiza la plataforma de hardware, pero las tecnologías DTW no requieren un proceso de actualización pesado, y actualizar el repositorio de patrones es suficiente para configurar el algoritmo en este nivel.
+\ Estas secuencias de datos fisicos luego se procesan en la capa intermedia utilizando tecnicas DTW. Como resultado, para cada secuencia de datos fisicos, un simple movimiento o accion es reconocido. Estas acciones simples se representan mediante un formato de datos binarios para que la solucion sea lo mas ligera posible. El software de este nivel debe modificarse cada
+vez que se actualiza la plataforma de hardware, pero las tecnologias DTW no requieren un proceso de actualizacion pesado, y actualizar el repositorio de patrones es suficiente para configurar el algoritmo en este nivel.
 
-\ Los movimientos simples reconocidos, entonces, se agrupan para crear secuencias de datos lógicos. Estas secuencias alimentan un sistema de reconocimiento de patrones de alto nivel basado en mCademas de Markov. En este nivel, los componentes de software requieren un proceso de entrenamiento pesado, pero la capa intermedia hace que la plataforma de hardware y los modelos de alto nivel sean totalmente independientes. Por lo tanto, cualquier cambio en la plataforma de hardware no impone una actualización en el HMM, lo que sería extremadamente costoso computacionalmente. Mediante el análisis de la secuencia de movimientos simples, se reconocen acciones complejas. La siguiente subsección describe en detalle las dos fases de reconocimiento de patrones propuestas.
-
-
-
-\subsection*{ 3.1 Reconocimiento de movimiento simple: deformación dinámica del tiempo}
-
-\lipsum[Con el objetivo de reconocer gestos o movimientos simples, se ha seleccionado una Deformación Dinámica del Tiempo. Las tecnologías de Deformación Dinámica del Tiempo contienen los requerimientos de un software de medio nivel dado que se adaptan a las características de la plataforma del hardware subyacente muy fácilmente y son relativamente rápidas y eficientes (algunos diminutos dispositvos incrustados pueden contenerlas).] 
+\ Los movimientos simples reconocidos, entonces, se agrupan para crear secuencias de datos logicos. Estas secuencias alimentan un sistema de reconocimiento de patrones de alto nivel basado en mCademas de Markov. En este nivel, los componentes de software requieren un proceso de entrenamiento pesado, pero la capa intermedia hace que la plataforma de hardware y los modelos de alto nivel sean totalmente independientes. Por lo tanto, cualquier cambio en la plataforma de hardware no impone una actualizacion en el HMM, lo que seria extremadamente costoso computacionalmente. Mediante el analisis de la secuencia de movimientos simples, se reconocen acciones complejas. La siguiente subseccion describe en detalle las dos fases de reconocimiento de patrones propuestas.
 
 
-\ En nuestra solución, el factor humano está monitorado mediante una serie de sensores S, conteniendo $N_S$  componentes.
+
+\subsection*{ 3.1 Reconocimiento de movimiento simple: deformacion dinamica del tiempo}
+
+\lipsum[Con el objetivo de reconocer gestos o movimientos simples, se ha seleccionado una Deformacion Dinamica del Tiempo. Las tecnologias de Deformacion Dinamica del Tiempo contienen los requerimientos de un software de medio nivel dado que se adaptan a las caracteristicas de la plataforma del hardware subyacente muy facilmente y son relativamente rapidas y eficientes (algunos diminutos dispositvos incrustados pueden contenerlas).] 
+
+
+\ En nuestra solucion, el factor humano esta monitorado mediante una serie de sensores S, conteniendo $N_S$  componentes.
 
 \ S = { $s_i$, i = 1, … , $N_S$ }
 
-\ La producción de estos sensores son periódicamente mostradas cada $T_s$ segundos; obteniendo para cada instante de tiempo, t, un vector de $N_s$ valores (cada valor de cada sensor). Este vector $Y_t$ es llamado una "muestra multidimensional".
+\ La produccion de estos sensores son periodicamente mostradas cada $T_s$ segundos; obteniendo para cada instante de tiempo, t, un vector de $N_s$ valores (cada valor de cada sensor). Este vector $Y_t$ es llamado una "muestra multidimensional".
 
 \ $Y_t = {y_t^i , i = 1, ..., N_S}$
 
-\ Entonces, un simple movimento Y tendrá una duración de $T_m$ segundos y será descrito por la secuencia temporal de $N_m$ muestras multidimensionales que habrán sido coleccionadas en ese tiempo. Para reconocer movimientos más tarde, se ha creado un almacen $\mathcal{R}$ conteniendo las correspondientes acciones temporales para que cada una de las acciones simples K sean reconocidas.
+\ Entonces, un simple movimento Y tendra una duracion de $T_m$ segundos y sera descrito por la secuencia temporal de $N_m$ muestras multidimensionales que habran sido coleccionadas en ese tiempo. Para reconocer movimientos mas tarde, se ha creado un almacen $\mathcal{R}$ conteniendo las correspondientes acciones temporales para que cada una de las acciones simples K sean reconocidas.
 
 \ Y = {$Y_t$, t = 1, ..., T_m} = {$Y^i$, i = 1, ..., $N_m$}
 
 \ $\mathcal{R}$ = {$R_i$, i = 1, ..., K}
 
-\ En general, la gente realiza movimientos similares pero de diferentes maneras. Además, las transiciones pueden ser más lentas o más rápidas, algunas acciones elementales pueden ser añadidas o eliminadas, etc... Por ello, dada una secuencia X con $N_x$ muestras, representando a un movimiento a ser reconocido, debe estar localizado el patrón $R_i$ $\in$ $\mathcal{R}$ más cercano a X; de la forma que $R_i$ sea reconocida como la acción realizada. Para hacer eso es definida una función de distancia. Esta función de distancia puede ser aplicada para calcular una matriz de coste, requiriendo tantas muestras frecuentemente no tienen la misma longitud ni están alineadas.
+\ En general, la gente realiza movimientos similares pero de diferentes maneras. Ademas, las transiciones pueden ser mas lentas o mas rapidas, algunas acciones elementales pueden ser añadidas o eliminadas, etc... Por ello, dada una secuencia X con $N_x$ muestras, representando a un movimiento a ser reconocido, debe estar localizado el patron $R_i$ $\in$ $\mathcal{R}$ mas cercano a X; de la forma que $R_i$ sea reconocida como la accion realizada. Para hacer eso es definida una funcion de distancia. Esta funcion de distancia puede ser aplicada para calcular una matriz de coste, requiriendo tantas muestras frecuentemente no tienen la misma longitud ni estan alineadas.
 
 \ d: $\mathcal{F}$ X $\mathcal{F}$  \longrightarrow $\mathfrak{R}^+$   ,    $X_i$, $R_i^j$ $\in$ $\mathcal{F}$
 
 \ C $\in$ $\mathfrak{R}^{N_x x N_m}$  C(n,m) = d($X^n$, $R^m_j$)
 
-\ En los sensores posicionales (acelerometros, dispositivos infrarrojos, etc.) la función distancia es aplicada directamente a la producción de estos (al contrario que, por ejemplo, micrófonos, cuya producción debe ser evaluada en el dominio de potencia). Aunque pueden ser empleadas otras funciones de distancia (como la divergencia de Kullback-Leibler o la distancia de Manhattan), para este primer trabajo estamos empleando la distancia estándar Euclidea.
+\ En los sensores posicionales (acelerometros, dispositivos infrarrojos, etc.) la funcion distancia es aplicada directamente a la produccion de estos (al contrario que, por ejemplo, microfonos, cuya produccion debe ser evaluada en el dominio de potencia). Aunque pueden ser empleadas otras funciones de distancia (como la divergencia de Kullback-Leibler o la distancia de Manhattan), para este primer trabajo estamos empleando la distancia estandar Euclidea.
 
 \ d($X^n$, $R_j^m$) = $\sqrt{
 \sum(x_i^n - r_i^{m,j})^2}$
 
-\ Después, es definido un camino torcido  p = ($p_1$,$p_2$,...,$p_L$) como secuencia de pares ($n_\mathfrak{l}, m_\mathfrak{l})$ $\in$ [1, $N_x$] X [1, $N_m$] and $\mathfrak{l}$ $\in$ [1, L], satisfaciendo tres condiciones: (i) la condición vinculante, i.e., $p_1$ = [1,1] y $p_L$ = [$N_x$,$N_m$]; (ii) la condición monotónica, i.e. $n_1 \leq n_2  \leq n_3 ...  \leq n_L$; y (iii) la condición de escalón de tamaño, i.e. $p_\mathfrak{l}$ -$p_{\mathfrak{l}-1}$ $\in$ {(1,0), (0,1), (1,1)} with \mathfrak{l} $\in$ [1, L-1].
+\ Despues, es definido un camino torcido  p = ($p_1$,$p_2$,...,$p_L$) como secuencia de pares ($n_\mathfrak{l}, m_\mathfrak{l})$ $\in$ [1, $N_x$] X [1, $N_m$] and $\mathfrak{l}$ $\in$ [1, L], satisfaciendo tres condiciones: (i) la condicion vinculante, i.e., $p_1$ = [1,1] y $p_L$ = [$N_x$,$N_m$]; (ii) la condicion monotonica, i.e. $n_1 \leq n_2  \leq n_3 ...  \leq n_L$; y (iii) la condicion de escalon de tamaño, i.e. $p_\mathfrak{l}$ -$p_{\mathfrak{l}-1}$ $\in$ {(1,0), (0,1), (1,1)} with \mathfrak{l} $\in$ [1, L-1].
 
-\ Entonces, el coste total de un camino torcido $p_i$ es calculado añadiendo todos los costes parciales o distancias. Con todo esto, la distancia entre dos secuencias de datos $R_i$ y X es definida como el coste (distancia) del camino torcido óptimo $p^*$.
+\ Entonces, el coste total de un camino torcido $p_i$ es calculado añadiendo todos los costes parciales o distancias. Con todo esto, la distancia entre dos secuencias de datos $R_i$ y X es definida como el coste (distancia) del camino torcido optimo $p^*$.
 
 \ $d_{p_i}$(X,$R_i$) = \sum($X^{n_l}$, $R_j^{m_l}$)
 
 \ $d_{PTW}$(X,$R_j$) = $d_p^*($X,$R_j$) = min{$d_{p_i}$(X,$R_j$), siendo $p_i$ un camino torcido}
 
-\ Finalmente, el simple movimiento reconocido desde la secuencia de datos X es aquel cuyo patrón $R_i$ tiene la menor distancia (es el más cercano) a X. El uso de esta definición es tolerante a variaciones de velocidad en la ejecución del movimiento, a la introducción de micro-gestos, etc... Además, como se puede ver, cuando una tecnología de hardware diferente es empleada, es suficiente con actualizar el patrón de repositorio $\mathcal{R}$ para reconfigurar el patrón de reconocimiento de solución entero (dado que no es requerido ningún entrenamiento).
+\ Finalmente, el simple movimiento reconocido desde la secuencia de datos X es aquel cuyo patron $R_i$ tiene la menor distancia (es el mas cercano) a X. El uso de esta definicion es tolerante a variaciones de velocidad en la ejecucion del movimiento, a la introduccion de micro-gestos, etc... Ademas, como se puede ver, cuando una tecnologia de hardware diferente es empleada, es suficiente con actualizar el patron de repositorio $\mathcal{R}$ para reconfigurar el patron de reconocimiento de solucion entero (dado que no es requerido ningun entrenamiento).
 
 
-\subsection*{3.2 Reconocimiento de acción compleja: Cadenas Ocultas de Markov}
+\subsection*{3.2 Reconocimiento de accion compleja: Cadenas Ocultas de Markov}
 
-\ El mecanismo propuesto previamente es muy útil para reconocer acciones simples, pero las acciones más complejas involucran un número más alto de variables y requieren de mucho más tiempo. Además, la Deformación Dinámica del Tiempo tiende a ser más imprecisa, y se requieren de modelos probabilísticos. Entre todos los modelos existentes, las Cadenas Ocultas de Markov son el más adecuado para escenarios industriales y procesos humanos.
+\ El mecanismo propuesto previamente es muy util para reconocer acciones simples, pero las acciones mas complejas involucran un numero mas alto de variables y requieren de mucho mas tiempo. Ademas, la Deformacion Dinamica del Tiempo tiende a ser mas imprecisa, y se requieren de modelos probabilisticos. Entre todos los modelos existentes, las Cadenas Ocultas de Markov son el mas adecuado para escenarios industriales y procesos humanos.
 
 \ Desde la fase anterior, el universo de los posibles movimientos simples a ser reconocidos es \mathcal{M} = {$m_i$, i = 1, ..., K}. Aparte, se define un estado universal \mathcal{U} = {$u_i$, i = 1, ..., Q}, describiendo todos los estados que la gente puede cruzar al realizar cualquiera de las acciones bajo estudio.
 
-\ Después, también es considerado un set de observaciones \mathcal{O} = {$O_i$, i = 1, ..., $Z_O$} (movimientos simples reconocidos en la fase anterior), al igual que la secuencia de estados V = {$O_i$, i = 1, $Z_v$} describiendo la acción a ser modelada por la Cadena Oculta de Markov. En este caso inicial, estamos asumiendo que cada observación corresponde a un nuevo estado, así que $Z_v$ = $Z_o$. Entonces, tres matrices son calculadas: (i) la matriz transitoria A, decribiendo la probabilidad de que el estado $u_j$ siga al estado $u_i$; (ii) la matriz de observación B, describiendo la probabilidad de que la observación $o_i$ sea causada por el estado $u_j$ independientemente de k; y (iii) la matriz de probabilidad inicial \prod.
+\ Despues, tambien es considerado un set de observaciones \mathcal{O} = {$O_i$, i = 1, ..., $Z_O$} (movimientos simples reconocidos en la fase anterior), al igual que la secuencia de estados V = {$O_i$, i = 1, $Z_v$} describiendo la accion a ser modelada por la Cadena Oculta de Markov. En este caso inicial, estamos asumiendo que cada observacion corresponde a un nuevo estado, asi que $Z_v$ = $Z_o$. Entonces, tres matrices son calculadas: (i) la matriz transitoria A, decribiendo la probabilidad de que el estado $u_j$ siga al estado $u_i$; (ii) la matriz de observacion B, describiendo la probabilidad de que la observacion $o_i$ sea causada por el estado $u_j$ independientemente de k; y (iii) la matriz de probabilidad inicial \prod.
 
 \ A = [$a_{i,j}$]   $a_{i,j}$ = P($v_k$ = $u_j$ | $v_{k-1}$ = $u_j$)
 
@@ -155,13 +155,13 @@ vez que se actualiza la plataforma de hardware, pero las tecnologías DTW no req
 
 \ $\lambda_i$ = [A, B, \prod]
 
-\ Además, se realizan dos asumciones: (i) la asumción de Markov, mostrando que todo estado es solamente dependiente del anterior; y (ii) la asumción de independencia, declarando que cualquier secuencia de observaciones depende solo del estado presente y no de estados u observaciones previos.
+\ Ademas, se realizan dos asumciones: (i) la asumcion de Markov, mostrando que todo estado es solamente dependiente del anterior; y (ii) la asumcion de independencia, declarando que cualquier secuencia de observaciones depende solo del estado presente y no de estados u observaciones previos.
 
 \ P($v_k$ | $v_1$, ..., $v_(k-1)$) = P($v_k$ | $v_(k-1)$)
 
 \ P($o_k$ | $o_1$, ..., $o_(k-1)$, $v_1$, $v_k$) = P($o_k$ | $v_k$)
 
-\ Para evaluar el modelo y reconocer la actividad que está siendo realizada por los usuarios, en este paper estamos usando un acercamiento tradicional. Aunque algoritmos avanzados han sido provados ser más eficientes, para este trabajo inicial estamos implementando directamente la expresión de evaluación en su forma tradicional.
+\ Para evaluar el modelo y reconocer la actividad que esta siendo realizada por los usuarios, en este paper estamos usando un acercamiento tradicional. Aunque algoritmos avanzados han sido provados ser mas eficientes, para este trabajo inicial estamos implementando directamente la expresion de evaluacion en su forma tradicional.
 
 \ P($\theta$|$\lambda$) = \sum P($\theta$|V,$\lambda$) P(V|$\lambda$) =
 
@@ -169,7 +169,7 @@ vez que se actualiza la plataforma de hardware, pero las tecnologías DTW no req
 
 \ = \sum $\pi_{v1}$ · $b_{v1}(o_1)$ · $a_{v1v2}$ · $b_{v2}(o_2)$ · ... · $a_{v_{zv-1}v_{zv}}$ · $b_{vzv}(o_{zo})$
 
-\ El proceso de aprendizaje también fue implementado de la manera más simple. Para la matriz transitoria, la de observación y la inicial se emplearon definiciones estadísticas. En particular, la definición de probabilidad de Laplace fue empleada para estimar estas tres matrices desde estadísticos acerca de las actividades bajo estudio. El operador count(·) el número de veces que un evento ocurre.
+\ El proceso de aprendizaje tambien fue implementado de la manera mas simple. Para la matriz transitoria, la de observacion y la inicial se emplearon definiciones estadisticas. En particular, la definicion de probabilidad de Laplace fue empleada para estimar estas tres matrices desde estadisticos acerca de las actividades bajo estudio. El operador count(·) el numero de veces que un evento ocurre.
 
 \ $a{i,j}$ = P($u_j$ | $u_i$) = $\frac{count($u_j$ sigue $u_i$}{count($u_j$)}$
 
@@ -180,11 +180,11 @@ vez que se actualiza la plataforma de hardware, pero las tecnologías DTW no req
 
 
 
-\subsection*{4 Validación experimental: implementación y resultados}
+\subsection*{4 Validacion experimental: implementacion y resultados}
 
-Con el fin de evaluar el desempeño de la solución propuesta, se diseñó una validación experimental y se llevó a cabo. Un escenario industrial fue simulado en aulas grandes de la Universidad Politécnica de Madrid. El escenario representaba una empresa tradicional de productos artesanales hechos a mano. En particular, un pequeño fabricante de PCI (Placas de Circuito Impreso) fue emulado.
-Para captar información sobre el comportamiento de las personas, se proporcionó a los participantes con un guante cibernético, que incluía acelerómetros y un lector RFID [19]. Los objetos alrededor de los escenarios se identificaron con una etiqueta RFID, por lo que la plataforma de hardware propuesta pueda identificar la posición de la mano (gesto) y los objetos con los que interactúan las personas.
-Se definió y reconoció una lista de doce actividades complejas diferentes utilizando la tecnología propuesta. La tabla 1 describe las doce actividades definidas, incluyendo una una breve descripción de las mismas. 
+Con el fin de evaluar el desempeño de la solucion propuesta, se diseño una validacion experimental y se llevo a cabo. Un escenario industrial fue simulado en aulas grandes de la Universidad Politecnica de Madrid. El escenario representaba una empresa tradicional de productos artesanales hechos a mano. En particular, un pequeño fabricante de PCI (Placas de Circuito Impreso) fue emulado.
+Para captar informacion sobre el comportamiento de las personas, se proporciono a los participantes con un guante cibernetico, que incluia acelerometros y un lector RFID [19]. Los objetos alrededor de los escenarios se identificaron con una etiqueta RFID, por lo que la plataforma de hardware propuesta pueda identificar la posicion de la mano (gesto) y los objetos con los que interactuan las personas.
+Se definio y reconocio una lista de doce actividades complejas diferentes utilizando la tecnologia propuesta. La tabla 1 describe las doce actividades definidas, incluyendo una una breve descripcion de las mismas. 
 
 \ \begin{figure}[H]
     \centering
@@ -193,15 +193,15 @@ Se definió y reconoció una lista de doce actividades complejas diferentes util
 \end{figure}
 
 
-Dieciocho personas (18) participaron en el experimento. Se pidió a las personas que realizaran las actividades en un orden aleatorio. El orden real, así como el orden en que las actividades se reconocen fueron almacenados por un proceso de software de supervisión. La tasa de éxito para toda la solución se evaluó, identificando (además), la mismatasa para cada una de las fases existentes.
-Para evaluar la mejora obtenida en comparación con las soluciones similares existentes, se emplearon las mismas secuencias de datos físicos para alimentar una solución de reconocimiento de patrones estándar basado únicamente en HMM. Utilizando un software de procesamiento estadístico de datos se extrayeron algunos resultados relevantes.
-La figura 4 representa la tasa de éxito media para tres casos: la solución global, la primera fase (DTW) y la segunda fase (HMM). Además, también se incluye el porcentaje de éxito del enfoque tradicional basado en HMM. Como puede verse, la tecnología propuesta es, globalmente, alrededor de un 9% mejor que las técnicas tradicionales de reconocimiento de patrones
-tradicionales basadas en HMM exclusivamente. Además, la primera fase (basada en DTW) es un 20% peor que la segunda fase (HMM), lo cual es significativo ya que las técnicas de las técnicas de Time Warping son más débiles por defecto. 
+Dieciocho personas (18) participaron en el experimento. Se pidio a las personas que realizaran las actividades en un orden aleatorio. El orden real, asi como el orden en que las actividades se reconocen fueron almacenados por un proceso de software de supervision. La tasa de exito para toda la solucion se evaluo, identificando (ademas), la mismatasa para cada una de las fases existentes.
+Para evaluar la mejora obtenida en comparacion con las soluciones similares existentes, se emplearon las mismas secuencias de datos fisicos para alimentar una solucion de reconocimiento de patrones estandar basado unicamente en HMM. Utilizando un software de procesamiento estadistico de datos se extrayeron algunos resultados relevantes.
+La figura 4 representa la tasa de exito media para tres casos: la solucion global, la primera fase (DTW) y la segunda fase (HMM). Ademas, tambien se incluye el porcentaje de exito del enfoque tradicional basado en HMM. Como puede verse, la tecnologia propuesta es, globalmente, alrededor de un 9 por ciento mejor que las tecnicas tradicionales de reconocimiento de patrones
+tradicionales basadas en HMM exclusivamente. Ademas, la primera fase (basada en DTW) es un 20 por ciento peor que la segunda fase (HMM), lo cual es significativo ya que las tecnicas de las tecnicas de Time Warping son mas debiles por defecto. 
 
 \ \begin{figure}[H]
     \centering
     \includegraphics{succes.png}
-    \caption{Fig. 4. Tasa media de éxito de la solución propuesta}
+    \caption{Fig. 4. Tasa media de exito de la solucion propuesta}
     \label{fig:my_label}
 \end{figure}
 
@@ -210,10 +210,10 @@ tradicionales basadas en HMM exclusivamente. Además, la primera fase (basada en
 \subsection*{ 5  Conclusiones y futuros trabajos}
 
 En este trabajo presentamos un nuevo algoritmo de reconocimiento de patrones para integrar a las personas en los sistemas de la Industria 4.0 y los procesos impulsados por el hombre. El algoritmo define actividades complejas
-como composiciones de movimientos simples. Las actividades complejas se reconocen mediante modelos de Markov ocultos, y los movimientos simples se reconocen mediante Time Warping. Para permitir la aplicación de este algoritmo en pequeños dispositivos embebidos, se seleccionan configuraciones ligeras. También se lleva a cabo una validación experimental, y los resultados muestran una mejora global de la tasa de éxito en torno al 9%.
-En futuros trabajos se considerarán las metodologías más complejas para el procesamiento de datos, y se evaluará la comparación para diferentes configuraciones del algoritmo propuesto. Además, se analizará la propuesta en diferentes escenarios.
+como composiciones de movimientos simples. Las actividades complejas se reconocen mediante modelos de Markov ocultos, y los movimientos simples se reconocen mediante Time Warping. Para permitir la aplicacion de este algoritmo en pequeños dispositivos embebidos, se seleccionan configuraciones ligeras. Tambien se lleva a cabo una validacion experimental, y los resultados muestran una mejora global de la tasa de exito en torno al 9.
+En futuros trabajos se consideraran las metodologias mas complejas para el procesamiento de datos, y se evaluara la comparacion para diferentes configuraciones del algoritmo propuesto. Ademas, se analizara la propuesta en diferentes escenarios.
 
-AGRADECIMIENTOS. La investigación que ha conducido a estos resultados ha recibido financiación del el Ministerio de Economía y Competitividad a través del proyecto SEMOLA (TEC2015-68284-R) y del Ministerio de Ciencia, Innovación y Universidades a través de VACADENA (proyecto RTC-2017-6031-2).
+AGRADECIMIENTOS. La investigacion que ha conducido a estos resultados ha recibido financiacion del el Ministerio de Economia y Competitividad a traves del proyecto SEMOLA (TEC2015-68284-R) y del Ministerio de Ciencia, Innovacion y Universidades a traves de VACADENA (proyecto RTC-2017-6031-2).
 
 
 \subsection*{Referencias}
@@ -221,14 +221,14 @@ AGRADECIMIENTOS. La investigación que ha conducido a estos resultados ha recibi
 \bigskip
 \bigskip
 
-1. Bordel, B., Alcarria, R., Sánchez-de-Rivera, D., & Robles, T. (2017, noviembre). Proteger los sistemas de la industria 4.0 contra los efectos maliciosos de los ataques cibernéticos. En
-Conferencia Internacional sobre Computación Ubicua e Inteligencia Ambiental (págs. 161-171). Springer, Cham.
+1. Bordel, B., Alcarria, R., Sanchez-de-Rivera, D., & Robles, T. (2017, noviembre). Proteger los sistemas de la industria 4.0 contra los efectos maliciosos de los ataques ciberneticos. En
+Conferencia Internacional sobre Computacion Ubicua e Inteligencia Ambiental (pags. 161-171). Springer, Cham.
 
 \bigskip
 \bigskip
 
- 2. Bordel, B., Alcarria, R., Robles, T., & Martín, D. (2017). Sistemas ciberfísicos:
-Ampliación de la detección generalizada de la teoría del control al Internet de las cosas. Informática omnipresente y móvil, 40, 156-184.
+ 2. Bordel, B., Alcarria, R., Robles, T., & Martin, D. (2017). Sistemas ciberfisicos:
+Ampliacion de la deteccion generalizada de la teoria del control al Internet de las cosas. Informatica omnipresente y movil, 40, 156-184.
 
 \bigskip
 \bigskip
@@ -238,29 +238,29 @@ Ampliación de la detección generalizada de la teoría del control al Internet 
 \bigskip
 \bigskip
 
-4. Bordel, B., Alcarria, R., Martín, D., Robles, T., & de Rivera, D. S. (2017). Autoconfiguración en sistemas ciberfísicos humanizados. Revista de Inteligencia Ambiental y Computación Humanizada, 8(4), 485-496.
+4. Bordel, B., Alcarria, R., Martin, D., Robles, T., & de Rivera, D. S. (2017). Autoconfiguracion en sistemas ciberfisicos humanizados. Revista de Inteligencia Ambiental y Computacion Humanizada, 8(4), 485-496.
 
 \bigskip
 \bigskip
 
-5. Bordel, B., de Rivera, D. S., Sánchez-Picot, Á., & Robles, T. (2016). Control de procesos físicos en sistemas basados en la industria 4.0: un enfoque en los sistemas ciberfísicos. en omnipresente
-Computación e Inteligencia Ambiental (págs. 257-262). Springer, Cham.
+5. Bordel, B., de Rivera, D. S., Sanchez-Picot, A., & Robles, T. (2016). Control de procesos fisicos en sistemas basados en la industria 4.0: un enfoque en los sistemas ciberfisicos. en omnipresente
+Computacion e Inteligencia Ambiental (pags. 257-262). Springer, Cham.
 
 \bigskip
 \bigskip
 
-6. Pal, S. K. y Wang, P. P. (2017). Algoritmos genéticos para el reconocimiento de patrones. Prensa CRC.
+6. Pal, S. K. y Wang, P. P. (2017). Algoritmos geneticos para el reconocimiento de patrones. Prensa CRC.
 
 \bigskip
 \bigskip
 
 
-7. Muller, M. (2007). Deformación dinámica del tiempo. Recuperación de información para música y movimiento, 69-84.
+7. Muller, M. (2007). Deformacion dinamica del tiempo. Recuperacion de informacion para musica y movimiento, 69-84.
 
 \bigskip
 \bigskip
 
-8. Eddy, S. R. (1996). Modelos ocultos de markov. Opinión actual en biología estructural, 6(3), 361-365.
+8. Eddy, S. R. (1996). Modelos ocultos de markov. Opinion actual en biologia estructural, 6(3), 361-365.
 
 \bigskip
 \bigskip
@@ -303,28 +303,28 @@ Biomedical Natural Language Processing (pp. 10-18). Association for Computationa
 
 
 15. Gu, T., Wu, Z., Tao, X., Pung, H. K. y Lu, J. (marzo de 2009). epsicar: un enfoque basado en patrones emergentes para el reconocimiento de actividades secuenciales, intercaladas y concurrentes. En
-Computación y comunicaciones generalizadas, 2009. PerCom 2009. Conferencia internacional IEEE sobre (págs. 1-9). IEEE.
+Computacion y comunicaciones generalizadas, 2009. PerCom 2009. Conferencia internacional IEEE sobre (pags. 1-9). IEEE.
 
 \bigskip
 \bigskip
 
 
-16. Hu, B. G. (2014). ¿Cuáles son las diferencias entre los clasificadores bayesianos y los clasificadores de información mutua?. Trans. IEEE. Red neuronal Sistema de aprendizaje, 25(2), 249-264.
+16. Hu, B. G. (2014). ¿Cuales son las diferencias entre los clasificadores bayesianos y los clasificadores de informacion mutua?. Trans. IEEE. Red neuronal Sistema de aprendizaje, 25(2), 249-264.
 
 \bigskip
 \bigskip
 
-17. Wang, X., Liu, X., Pedrycz, W. y Zhang, L. (2015). Árboles de decisión basados en reglas difusas. Reconocimiento de patrones, 48(1), 50-59.
+17. Wang, X., Liu, X., Pedrycz, W. y Zhang, L. (2015). Arboles de decision basados en reglas difusas. Reconocimiento de patrones, 48(1), 50-59.
 
 \bigskip
 \bigskip
 
-18. Davis, M. H. (2018). Modelos de Markov y optimización. Routledge.
+18. Davis, M. H. (2018). Modelos de Markov y optimizacion. Routledge.
 
 \bigskip
 \bigskip
 
-19. Bordel Sánchez, B., Alcarria, R., Martín, D., & Robles, T. (2015). TF4SM: un marco para desarrollar soluciones de trazabilidad en pequeñas empresas manufactureras. Sensores, 15(11), 29478-29510.
+19. Bordel Sanchez, B., Alcarria, R., Martin, D., & Robles, T. (2015). TF4SM: un marco para desarrollar soluciones de trazabilidad en pequeñas empresas manufactureras. Sensores, 15(11), 29478-29510.
 
 
 \end{document}
