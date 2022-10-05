@@ -202,7 +202,7 @@ def markov1(PAIS):
     print("Cuando el GDP de", PAIS, "decrece, hay un", round((d_en_d/len(lista_c)) * 100, 2), "% de que decrezca otra vez, y un", round(100 - (d_en_d/len(lista_c)) * 100, 2), "% de que crezca")
 ```
 
-Una vez hecho esto, ejecutamos este codigo con los paises que queriamos analizar y creamos unos gráficos en los que aparecían las cadenas de Markov de algunos paises.
+Una vez hecho esto, ejecutamos este codigo con los paises que queriamos analizar y creamos unos diagramas en los que aparecían las cadenas de Markov de algunos paises.
 El codigo ejecutado es:
 ```
 from markov1 import *
@@ -215,7 +215,7 @@ markov1('Nigeria')
 markov1('Spain')
 ```
 
-Los graficos son los siguientes.
+Los diagramas son los siguientes.
 
 ## Nigeria
 ![nigeria](https://user-images.githubusercontent.com/91721237/191485672-d6375630-4777-4c96-acf9-d8cb22de222b.png)
@@ -276,3 +276,16 @@ def markov2(PAIS1, PAIS2, PAIS3):
     for i in range(0, len(matriz)):
         print(matriz[i])
 ```        
+
+Esto lo utilizamos para comparar el GDP de España, China y Alemania.
+
+El código de esto es:
+```
+from markov2 import *
+
+markov2('Germany', 'China', 'Spain')
+```
+
+El diagrama de esto es:
+
+![comparar paises](https://user-images.githubusercontent.com/91721237/194151639-c3a7ab3a-a47a-4d50-ae2e-bddb6659beb3.png)
